@@ -46,13 +46,13 @@ core-icon-button {
 .dnd-header {
   z-index: 1;
   font-family: 'Roboto', sans-serif;
-  text-transform: capitalize;
+  /*text-transform: capitalize;*/
   /*position: relative;*/
   /*display: flex;*/
   /*flex-direction: row;*/
   /*justify-content: center;*/
   /*align-items: center;*/
-  line-height: 46px;
+  /*line-height: 46px;*/
   height: 46px;
   background-color: #00796b;
   color: white;
@@ -77,19 +77,21 @@ core-icon-button {
   width: 30px;
 }
 .listForm {
-  top: 3px;
+  /*top: 31px;*/
+  top:0px;
   background-color: white;
   position: absolute;
-  /*top: 46px;*/
   left:0%;
   right: 0%;
-  overflow-y: auto;
+  /*overflow-y: auto;*/
   list-style-type: none;
   margin: 0px;
   padding-top: 0px;
   padding-left: 0px;
-  bottom: 10%;
+  bottom: 12px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  height: 500px;
+  overflow: scroll;
 }
 .controls {
   position: absolute;
@@ -174,3 +176,34 @@ core-icon-button {
 .beBig {
   height: 51px;
 }
+#addGroup::shadow .button-content {
+  padding: 4px;
+  font-size:9pt;
+  color: #000000;
+}
+#addGroup{
+  background: whitesmoke;
+  color: #fff;
+}
+#addGroup,#saveJson::shadow #ripple {
+  color: grey;
+}
+#saveJson::shadow .button-content {
+  padding: 4px;
+  font-size:9pt;
+  color: #000000;
+}
+#saveJson{
+  background: whitesmoke;
+  color: #fff;
+}
+paper-tabs,paper-tab{
+  height: 30px;
+}
+#jsonTextarea{
+  height:430px;
+  margin-top:20px;
+  width:99.5%;
+  overflow: scroll;
+}
+

@@ -38,17 +38,17 @@ core-icon-button /deep/ core-icon[role=img] {
 .info-element{
   font-size: 11px;
   color: green;
-  width:25%;
+  width:30%;
   display: inline-block;
 }
 .head-element{
-  width:25%;
+  width:30%;
   display: inline-block;
 }
 .required-element{
   font-size: 11px;
   color: red;
-  width:25%;
+  width:30%;
   display: inline-block;
 }
 

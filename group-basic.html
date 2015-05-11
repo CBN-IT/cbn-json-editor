@@ -6,39 +6,31 @@
 <link href="../paper-dialog/paper-action-dialog.html" rel="import">
 
 <!-- <link rel="import" href="../../polymer-gestures.html"> -->
-<polymer-element name="group-basic" attributes="label list collapse id">
+<polymer-element name="group-basic" attributes="label list collapse id dialog">
   <template>
-    <!-- <link href='http://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'> -->
     <link rel="stylesheet" type="text/css" href="group-basic.css">
-
-    <!--<div class="dnd-header" on-click="{{collapseGo}}"> <span class="fieldset" on-click="{{editTitle}}">{{title}}</span>-->
-      <!--<core-icon-button  value="{{idAdapter(i)}}" icon="delete" title="delete" class="trash-group" on-click="{{deleteGroup}}"></core-icon-button>-->
-    <!--</div>-->
     <ul id="ulist" class="font-special list" touch-action="pan-y" size="3">
       <template repeat="{{item, i in list}}">
         <li value="{{idAdapter(i)}}_spacer" class="spacer beSmall"></li>
+        <!--important:type-item-->
         <li value="{{idAdapter(i)}}"  class="item" type="item" style="padding-left:10px;line-height: 46px;list-style-type: none;font-family: 'Roboto', sans-serif;border-bottom: 1px solid #e0e0e0;cursor: move;background-color: white;color: black;">
-
-          <!--{{labelAdapter(item)}}-->
-
           <span class="head-element">{{item.caption}}</span>
-
           <span class="info-element">{{item.type}}</span>
           <span class="required-element">
             <template if="{{item.validate.required}}">
               Obligatoriu
             </template>
-
           </span>
           <core-icon-button  value="{{idAdapter(i)}}" icon="delete" class="trash-element" title="delete" on-click="{{delete}}"></core-icon-button>
         </li>
       </template>
-      <li value="last_spacer" class="spacer beSmall"></li>
+      <li value="last_spacer" id="spacer" class="spacer beSmall"></li>
 
     </ul>
     </div>
 
   </template>
+  <script type="text/javascript" src="utils.js"></script>
   <script>
 
     /* global PolymerGestures */
@@ -53,74 +45,46 @@
 
         list: [],
         title:'',
-        timer:'',
-        startX: undefined,
         collapse:"",
-
-//        delete: function(item){
-//          console.log(item);
-//          console.log("ddddd");
-//        },
-        collapseGoOver:function(){
-          console.log("again");
-          var that=this;
-//          console.log("buei");
-          var timeout = setTimeout(function () {
-//            console.log(that.$.ulist.hidden);
-
-            if(that.$.ulist.hidden==true && that.timer==true){
-              console.log("again");
-//              console.log("bueeeei");
-              that.collapse=!that.collapse;
-            }
-          }, 1000);
-        },
+        form:"",
         editTitle:function() {
           //this.toogleDoalo
           this.collapse=!this.collapse;
         },
         collapseGo:function() {
-//          console.log("fffff");
           this.collapse=!this.collapse;
-          //this.collapse=!this.collapse;
         },
         collapseChanged:function() {
-//          console.log("dvfgcfg");
           this.$.ulist.hidden=!this.collapse;
         },
         toggleDialog2:function(sourceItem,index) {
-          //console.log(index);
-          sourceItem.id=index;
-//          console.log(this);
-          document.getElementById('contentDialog').content=JSON.parse(JSON.stringify(sourceItem));
-          document.getElementById('contentDialog').initial=sourceItem;
-          document.getElementById('contentDialog').item=this;
-          document.getElementById('dialog2').toggle();
-        },
-        saveElement:function(sourceItem) {
-          this.list[sourceItem.id]=sourceItem;
-//          console.log(sourceItem.id);
-        },
-        deleteElement: function(index) {
-          this.list.splice(index, 1);
+//          sourceItem.id=index;//aici
+          this.dialog.content=JSON.parse(JSON.stringify(sourceItem));
+          this.dialog.initial=sourceItem;
+          this.dialog.item=this;
+          this.dialog.index=index;
+          this.dialog.parentNode.toggle();
         },
         delete: function(event, detail, sender) {
           var index=sender.getAttribute("value");
-
-//          console.log(index);
           this.list.splice(index, 1);
-//          this.list
+          this.fire('update-json',{});
+        },
+        listChanged:function(){
+          if(this.list.length==0 && this.initiateBig.contains('beSmall')){
+            this.$.spacer.classList.remove('beSmall');
+            this.$.spacer.classList.add('beBig');
+          }
         },
         attached: function() {
           // populate the element’s data model
           // (the salutations array)
-//          console.log(this.collapse);
-//          console.log(this.$.ulist.hidden);
           this.title = this.title || 'Group';
           this.list = this.list || [];
-//          console.log(this.collapse);
+          this.initiateBig=this.$.spacer.classList;
           this.collapse=this.collapse || false;
-          this.$.ulist.hidden=!this.collapse
+          this.$.ulist.hidden=!this.collapse;
+          console.log(this.form);
           var parent = this.parentElement;
           var self = this;
           parent.oncontextmenu = function() {
@@ -128,23 +92,30 @@
           };
           PolymerGestures.addEventListener(this.$.ulist, 'trackstart', function(e) {
             var li = e.path[0];
-
-            if (li.nodeName !== 'SPAN') {
-              return; // not a list item; ignore
+            if(li.nodeName == 'SPAN'){
+              self.initiateItemDrag(li.parentNode, e);
             }
-//            console.log(this.parentElement);
-            self.initiateItemDrag(li.parentNode, e);
+            else if(li.nodeName == 'LI'){
+              self.initiateItemDrag(li, e);
+            }
+            else {
+              return;
+            }
           });
           PolymerGestures.addEventListener(this.$.ulist, 'tap', function(e) {
             var li = e.path[0];
-//            console.log(li.parentNode);
-            if (li.nodeName !== 'SPAN') {
-              return; // not a list item; ignore
-            }
-//            console.log(this.parentElement);
-//            console.log(this.toggleDialog2(li));
+            if(li.nodeName == 'SPAN'){
+              self.toggleDialog2(self.list[li.parentNode.getAttribute("value")],li.parentNode.getAttribute("value"));
 
-            self.toggleDialog2(self.list[li.parentNode.getAttribute("value")],li.parentNode.getAttribute("value"));
+            }
+            else if(li.nodeName == 'LI'){
+              self.toggleDialog2(self.list[li.getAttribute("value")],li.parentNode.getAttribute("value"));
+
+            }
+            else {
+              return;
+            }
+//            self.toggleDialog2(self.list[li.parentNode.getAttribute("value")],li.parentNode.getAttribute("value"));
           });
         },
         getRowHeights: function() {
@@ -161,9 +132,9 @@
           boundries[0] = 0;
           return boundries;
         },
-        //these can be overriden, or the label and id values can be override
+        //these cand be overriden, or the label and id values can be override
         labelAdapter: function(item) {
-         // console.log(item);
+
           if (typeof item === 'object') {
             return item[this.type];
           }
@@ -189,7 +160,6 @@
         handleDragOver: function(dragged, x, y) {
           var self = this;
           var bounds = this.$.ulist.getBoundingClientRect();
-          //var items = this.$.ulist.querySelectorAll('li.item').array();
           var boundries = this.getRowHeights();
           var localY = y - bounds.top;
           var minValue = 1000000;
@@ -251,7 +221,19 @@
           //obscure what it's over
           this.dragFodder.style.display = 'none';
           var dropTarget = document.elementFromPoint(globalX + cxo, globalY + cyo);
-//          console.dir(dropTarget.shadowRoot.elementFromPoint(globalX + cxo, globalY + cyo));
+          if(dropTarget && dropTarget.tagName=="FORM-BASIC" && dropTarget.shadowRoot && dropTarget.shadowRoot.elementFromPoint(globalX + cxo, globalY + cyo)&&
+            dropTarget.shadowRoot.elementFromPoint(globalX + cxo, globalY + cyo).tagName=="DIV")
+          {
+            var index = dropTarget.shadowRoot.elementFromPoint(globalX + cxo, globalY + cyo).getAttribute('value');
+            if(dropTarget.list[index]&& dropTarget.list[index].collapsed==false &&
+              dropTarget.timeout=='' && this.indexGroup==index) {
+              this.fire('set-timeout',{index:index});
+            }
+            else if(dropTarget.list[index] && dropTarget.list[index].collapsed==false && this.indexGroup!=index) {
+              this.fire('set-timeout',{index:index});
+            }
+          }
+
           if(dropTarget && dropTarget.shadowRoot &&  dropTarget.shadowRoot.elementFromPoint(globalX + cxo, globalY + cyo) &&
             dropTarget.shadowRoot.elementFromPoint(globalX + cxo, globalY + cyo).tagName=="GROUP-BASIC"){
             dropTarget = dropTarget.shadowRoot.elementFromPoint(globalX + cxo, globalY + cyo);
@@ -259,8 +241,6 @@
           }
           this.dragFodder.style.display = '';
           if (dropTarget && dropTarget.handleDragOver) {
-//            console.log(this.currentDropTarget);
-//            console.log(dropTarget);
             if (this.currentDropTarget !== dropTarget) {
               if (!dropTarget.canDropItem(this.list, dropTarget.list, this.dragFodder.sourceIndex, this.dragFodder.dragItem, e)) {
                 return;
@@ -301,25 +281,16 @@
             self.setCssLocation(listItem.style, targetLeft, targetTop);
             setTimeout(function() {
               listItem.parentElement.removeChild(listItem);
+
               dropSpacer.classList.remove('beBig');
               dropSpacer.classList.add('beSmall');
-//              console.log(sourceItem);
-//              console.log(JSON.parse(JSON.stringify(sourceItem)));
-
-//              sourceItem.id=insertIndex;
               self.list.splice(insertIndex, 0, JSON.parse(JSON.stringify(sourceItem)));
-
-//              console.log(insertIndex);
               if(sourceItem.name==""){
-//                console.log(self.list);
                 self.toggleDialog2(self.list[insertIndex],insertIndex);
               }
-//              console.log(self.list);
               self.overRow = undefined;
             }, 170);
           });
-          //this.correctItemState();
-          //remove the item from body
         },
         //this function can be replaced to
         //control what can be dragged out and what cannot
@@ -338,7 +309,7 @@
         //but this will suffice for current needs
         canDropItem: function(sourceList, myList, sourceIndex, item, e) {
           noop(sourceList, myList, sourceIndex, item, e);
-          this.collapseGoOver();
+          //this.collapseGoOver();
 
 
           //some examples....
@@ -374,14 +345,10 @@
           var parentBounds = parent.getBoundingClientRect();
           //li.classList.add('level3');
           li.style.width = parentBounds.width + 'px';
-          // if (this.dragFodder) {
-          //     document.body.removeChild(this.dragFodder);
-          // }
           this.list.splice(li.dragIndex, 1);
           this.dragFodder = li;
 
           this.dragEventStart = [bounds.left, (e.y || e.clientY) - bounds.top];
-          //this.dragItemStart = [bounds.left - parentBounds.left, bounds.top - parentBounds.top];
           //lets insert this guy and do a transition to
           //shrink his height
           //goAwayer.classList.remove('transition');
@@ -391,6 +358,7 @@
           PolymerGestures.addEventListener(li, 'track', function(e) {
             self.handleDrag(e);
           });
+          var that=this;
           PolymerGestures.addEventListener(li, 'trackend', function(e) {
             self.handleDrop(e);
           });
@@ -428,17 +396,21 @@
           var self = this;
           var spacer = this.$.ulist.querySelector('li.spacer.beBig');
           if (spacer) {
+            var that=this;
             requestAnimationFrame(function() {
-              spacer.classList.remove('beBig');
-              spacer.classList.add('beSmall');
-              spacer.classList.add('transition');
-              //wait a little longer than the transition
-              //and remove the spacer so as not to have
-              //duplicate spacers
-              setTimeout(function() {
-                spacer.classList.remove('transition');
-                self.overRow = undefined;
-              }, 210);
+              if(that.list.length!=0){
+                spacer.classList.remove('beBig');
+                spacer.classList.add('beSmall');
+                spacer.classList.add('transition');
+                //wait a little longer than the transition
+                //and remove the spacer so as not to have
+                //duplicate spacers
+                setTimeout(function() {
+                  spacer.classList.remove('transition');
+                  self.overRow = undefined;
+                }, 210);
+              }
+
             });
           }
         }

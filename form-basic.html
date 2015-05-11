@@ -5,29 +5,55 @@
 <link rel="import" href="group-basic.html">
 <link href="../paper-dialog/paper-dialog.html" rel="import">
 <link href="../paper-dialog/paper-action-dialog.html" rel="import">
+<link href="../paper-tabs/paper-tab.html" rel="import">
+<link href="../paper-tabs/paper-tabs.html" rel="import">
+<link href="../core-pages/core-pages.html" rel="import">
+<link href="../paper-ripple/paper-ripple.html" rel="import">
+<link href="../paper-button/paper-button.html" rel="import">
 
 <!-- <link rel="import" href="../../polymer-gestures.html"> -->
-<polymer-element name="form-basic" attributes="label list collapse">
+<polymer-element name="form-basic" attributes="label list collapse dialog" on-set-timeout="{{setTimeout}}" on-update-json="{{updateJson}}">
   <template>
-    <!-- <link href='http://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'> -->
     <link rel="stylesheet" type="text/css" href="form-basic.css">
+    <paper-tabs selected="{{selected}}" class="transparent-teal" role="tablist" horizontal="" center="" layout="">
 
-    <!--<div class="dnd-header" on-click="{{collapseGo}}" > <span class="fieldset" on-click="{{editTitle}}">{{title}}</span></div>-->
-    <ul id="ulistForm" class="font-special listForm" touch-action="pan-y" size="3">
-      <template repeat="{{item, i in list}}">
-        <li value="{{idAdapter(i)}}_spacer" class="spacer beSmall"></li>
-        <li value="{{idAdapter(i)}}" class="item" type="group" style="line-height: 46px;list-style-type: none;font-family: 'Roboto', sans-serif;border-bottom: 1px solid #e0e0e0;cursor: move;background-color: white;color: black;">
-          <div value="{{idAdapter(i)}}" class="dnd-header" type="fieldset" on-click="{{collapseGo}}"> <span class="fieldset" on-click="{{editTitle}}">{{item.caption}}</span>
-            <core-icon-button  value="{{idAdapter(i)}}" icon="delete" title="delete" class="trash-group" on-click="{{delete}}"></core-icon-button>
-          </div>
-          <group-basic list="{{item.elements}}" id="group_{{idAdapter(i)}}" title="{{item.caption}}" collapse="{{item.collapsed}}"></group-basic>
-          <!--<core-icon-button  value="{{idAdapter(i)}}" icon="delete" title="delete" on-click="{{delete}}"></core-icon-button>-->
-        </li>
-      </template>
-      <li value="last_spacer" class="spacer beSmall"></li>
+      <paper-tab role="tab" inline="" flex="" center-center="" horizontal="" layout="" class="">Configurare</paper-tab>
+      <paper-tab role="tab" inline="" flex="" center-center="" horizontal="" layout="" class="">Json</paper-tab>
+      <paper-tab role="tab" inline="" flex="" center-center="" horizontal="" layout="" class="">Vizualizare</paper-tab>
+      <!--<paper-tab role="tab" inline="" flex="" center-center="" horizontal="" layout="" class="">ITEM THREE</paper-tab>-->
 
-    </ul>
-    </div>
+    </paper-tabs>
+    <core-pages selected="{{selected}}">
+      <div><ul id="ulistForm" class="font-special listForm" touch-action="pan-y" size="3">
+        <template repeat="{{item, i in list}}">
+          <li value="{{idAdapter(i)}}_spacer" class="spacer beSmall"></li>
+          <!--important:type-group-->
+          <li value="{{idAdapter(i)}}" class="item" type="group" style="line-height: 46px;list-style-type: none;font-family: 'Roboto', sans-serif;border-bottom: 1px solid #e0e0e0;cursor: move;background-color: white;color: black;">
+            <!--important:type,class-fieldset-->
+            <div value="{{idAdapter(i)}}" class="dnd-header" type="fieldset" on-click="{{collapseGo}}">
+              <span class="fieldset" on-click="{{editTitle}}">{{item.name}}</span>
+              <core-icon-button  value="{{idAdapter(i)}}" icon="delete" title="delete" class="trash-group" on-click="{{delete}}"></core-icon-button>
+            </div>
+            <group-basic list="{{item.elements}}" id="group_{{idAdapter(i)}}" dialog={{dialog}} title="{{item.caption}}" collapse="{{item.collapsed}}"></group-basic>
+          </li>
+        </template>
+        <li value="last_spacer" class="spacer beSmall"></li>
+        <div value="{{idAdapter(i)}}" class="dnd-header">
+          <span style="line-height: 46px;"><input value="{{newGroup}}" width="100px" style="margin-right:10px;"></span>
+          <paper-button on-click="{{addGroup}}" id="addGroup">Adauga grup</paper-button>
+          <!--<span><button on-click="{{addGroup}}">Adauga grup</button></span>-->
+        </div>
+
+      </ul></div>
+      <div>
+        <textarea id="jsonTextarea" value="{{jsonString}}"></textarea><br/><br/>
+        <paper-button on-click="{{saveJson}}" id="saveJson">Salveaza</paper-button>
+        <!--<paper-button id="save" on-click="{{clickSave}}"  style="background: #4285f4;color: #fff;">Salveaza</paper-button>-->
+      </div>
+      <div></div>
+    </core-pages>
+
+
 
   </template>
   <script>
@@ -41,252 +67,283 @@
       };
       Polymer('form-basic', { /* jshint ignore:line  */
         type: 'type',
-        id: 'id',
-        list : [
-          {
-            type: "fieldset",
-            caption: "Group A",
-            collapsed: true,
-            elements: [{
-              id: 0,
-              caption: "Ahjgjh",
-              type: 'Input',
-              name: "cxvx",
-              format: "caractere neformatate",
-              dbType:"",
-              defaultValue: "",
-              info:"",
-              search:false,
-              validate: {
-                required: true,
-                number: false,
-                unique: false,
-                email: false,
-                cnp: false,
-                minLength: "",
-                maxLength: "",
-                min: "",
-                max: ""
-              }
-            }, {
-              id: 1,
-              type: 'Select',
-              caption: "Ajhkjh",
-              name: "xcvxv",
-              search: false,
-              multiple: false,
-              defaultValue: "",
-              info:"",
-              database: "",
-              property:"",
-              validate: {
-                required: true,
-                minLength: "",
-                maxLength: ""
-              },
-              options: []
-            }, {
-              id: 2,
-              type: 'Textarea',
-              caption: "Ajhkjh",
-              name: "htfgh",
-              info:"",
-              validate: {
-                required: true,
-                minLength: "",
-                maxLength: ""
-              }
-            }, {
-              id: 3,
-              type: 'Date',
-              caption: "Ajhkjh",
-              name: "fhfnm",
-              search: false,
-              defaultValue: "",
-              format: "",
-              info:"",
-              validate: {
-                required: true,
-                min: "",
-                max: ""
-              }
-            }, {
-              id: 4,
-              type: 'Paragraf',
-              caption:"Paragraf",
-              name: "fnhgh"
-            }, {
-              id: 5,
-              type: 'File',
-              caption: "Ajhkjh",
-              name: "gfhfg",
-              info:"",
-              multiple: false,
-              validate: {
-                required: true,
-                acceptFileTypes: "",
-                maxFileSize: "", // in bytes
-                maxNumberOfFiles: "" // if > 0 multiple true
-              }
-            } ]
-          },
-          {
-            type: "fieldset",
-            caption: "Group B",
-            collapsed: false,
-            elements: [{
-              id: 0,
-              caption: "Ajhkjh",
-              type: 'Input',
-              name: "fhnngh",
-              format: "caractere neformatate",
-              dbType:"",
-              defaultValue: "",
-              info:"",
-              search:false,
-              validate: {
-                required: true,
-                number: false,
-                unique: false,
-                email: false,
-                cnp: false,
-                minLength: "",
-                maxLength: "",
-                min: "",
-                max: ""
-              }
-            }, {
-              id: 1,
-              type: 'Select',
-              caption: "Ajhkjh",
-              name: "hfnh",
-              search: false,
-              multiple: false,
-              defaultValue: "",
-              info:"",
-              database: "",
-              property:"",
-              validate: {
-                required: true,
-                minLength: "",
-                maxLength: ""
-              },
-              options: []
-            }, {
-              id: 2,
-              type: 'Textarea',
-              caption: "Ajhkjh",
-              name: "nghng",
-              info:"",
-              validate: {
-                required: true,
-                minLength: "",
-                maxLength: ""
-              }
-            }, {
-              id: 3,
-              type: 'Date',
-              caption: "Ajhkjh",
-              name: "gngcn",
-              search: false,
-              defaultValue: "",
-              format: "",
-              info:"",
-              validate: {
-                required: true,
-                min: "",
-                max: ""
-              }
-            }, {
-              id: 4,
-              type: 'Paragraf',
-              caption:"Paragraf",
-              name: "gfvncgn"
-            }, {
-              id: 5,
-              type: 'File',
-              caption: "Ajhkjh",
-              name: "dfgdfg",
-              info:"",
-              multiple: false,
-              validate: {
-                required: true,
-                acceptFileTypes: "",
-                maxFileSize: "", // in bytes
-                maxNumberOfFiles: "" // if > 0 multiple true
-              }
-            } ]
-          }
-        ],
+        list : '',
         title:'',
-
-
-//        delete: function(item){
-//          console.log(item);
-//          console.log("ddddd");
+        dialog:'',
+        timeout:'',
+        newGroup:'',
+        selected:0,
+        jsonString:'',
+//        newGroupChanged:function(){
+//          if(this.newGroupChanged==''){
+//
+//          }
 //        },
-        collapseGoOver:function(){
-          console.log("again");
-          var that=this;
-//          console.log("buei");
-          var timeout = setTimeout(function () {
-//            console.log(that.$.ulist.hidden);
+        saveJson:function(){
+          try{
+            this.list=JSON.parse(this.jsonString,null,'\t');
+            alert("Json salvat");
+          }catch(e){
 
-            if(that.$.ulistForm.hidden==true && that.timer==true){
-              console.log("again");
-//              console.log("bueeeei");
-              that.collapse=!that.collapse;
-            }
+            alert("Json invalid");
+            this.jsonString=JSON.stringify(this.list,null,'\t');
+
+          }
+        },
+        addGroup: function(){
+          var newGroup={
+            type: "Fieldset",
+            name: this.newGroup || '[Grup fara nume]',
+            collapsed: true,
+            elements:[]
+          };
+          this.list.push(newGroup);
+          this.newGroup='';
+        },
+        updateJson:function(){
+          this.jsonString=JSON.stringify(this.list,null,'\t');
+        },
+        setTimeout: function(event, detail, sender){
+          clearTimeout(this.timeout);
+          this.timeout='';
+          var that=this;
+          this.timeout = setTimeout(function () {
+            that.list[parseInt(detail.index)].collapsed = true;
+
           }, 1000);
         },
-        editTitle:function() {
-          //this.toogleDoalo
-          //this.collapse=!this.collapse;
+        collapseGoOver:function(index){
+//          this.list[index].collapsed=!this.list[index].collapsed;
+        },
+        editTitle:function(event, detail, sender) {
+          var index=sender.parentNode.getAttribute("value");
+          this.toggleDialog2(index);
         },
         collapseGo: function(event, detail, sender) {
-         console.log(sender);
           var index=sender.getAttribute("value");
-          this.list[index].collapsed=!this.list[index].collapsed;
-//          this.list
+          var flag=0;
+//          console.log(event.path);
+          for(var i=0;i<event.path.length;i++){
+            if(event.path[i].tagName=='SPAN' && event.path[i].classList.contains('fieldset')){
+              flag=1;
+            }
+          }
+          if(flag==0){
+            this.list[index].collapsed=!this.list[index].collapsed;
+          }
+
         },
-//        collapseGo:function(item) {
-//          console.log();
-//          console.log("fffff");
-//          item.collapsed=!item.collapsed;
-//          //this.collapse=!this.collapse;
-//        },
         collapseChanged:function() {
-//          console.log("dvfgcfg");
           this.$.ulistForm.hidden=!this.collapse;
         },
-        toggleDialog2:function(sourceItem,index) {
-          //console.log(index);
-          sourceItem.id=index;
-          document.getElementById('contentDialog').content=JSON.parse(JSON.stringify(sourceItem));
-          document.getElementById('contentDialog').initial=sourceItem;
-          document.getElementById('dialog2').toggle();
+        listChanged:function() {
+//          JSON.parse(json), null, '\t')
+//          console.log("DEEDEE");
+          this.jsonString=JSON.stringify(this.list, null, '\t');
+//          this.$.ulistForm.hidden=!this.collapse;
+        },
+        toggleDialog2:function(index) {
+          this.dialog.content=JSON.parse(JSON.stringify(this.list[index]));
+          this.dialog.initial=this.list[index];
+          this.dialog.item=this;
+          this.dialog.index=index;
+          this.dialog.parentNode.toggle();
+
         },
         saveElement:function(sourceItem) {
           this.list[sourceItem.id]=sourceItem;
-//          console.log(sourceItem.id);
         },
         deleteElement: function(index) {
           this.list.splice(index, 1);
         },
         delete: function(event, detail, sender) {
           var index=sender.getAttribute("value");
-
-//          console.log(index);
           this.list.splice(index, 1);
-//          this.list
+          this.jsonString=JSON.stringify(this.list, null, '\t');
+        },
+        dialogChanged:function(){
         },
         attached: function() {
           // populate the element’s data model
           // (the salutations array)
-//          console.log(this.collapse);
-//          console.log(this.$.ulist.hidden);
           this.title = this.title || 'Group';
-          this.list = this.list || [];
+          this.list = [
+            {
+              type: "Fieldset",
+              name: "Group A",
+              collapsed: false,
+              elements:
+                [{
+//                  id: 0,
+                  caption: "Ahjgjh",
+                  type: 'Input',
+                  name: "cxvx",
+                  format: "caractere neformatate",
+                  dbType:"",
+                  defaultValue: "",
+                  info:"",
+                  search:false,
+                  validate: {
+                    required: true,
+                    number: false,
+                    unique: false,
+                    email: false,
+                    cnp: false,
+                    minLength: "",
+                    maxLength: "",
+                    min: "",
+                    max: ""
+                  }
+                }, {
+//                  id: 1,
+                  type: 'Select',
+                  caption: "Ajhkjh",
+                  name: "xcvxv",
+                  search: false,
+                  multiple: false,
+                  defaultValue: "",
+                  info:"",
+                  database: "",
+                  property:"",
+                  validate: {
+                    required: true,
+                    minLength: "",
+                    maxLength: ""
+                  },
+                  options: []
+                }, {
+//                  id: 2,
+                  type: 'Textarea',
+                  caption: "Ajhkjh",
+                  name: "htfgh",
+                  info:"",
+                  validate: {
+                    required: true,
+                    minLength: "",
+                    maxLength: ""
+                  }
+                }, {
+//                  id: 3,
+                  type: 'Date',
+                  caption: "Ajhkjh",
+                  name: "fhfnm",
+                  search: false,
+                  defaultValue: "",
+                  format: "",
+                  info:"",
+                  validate: {
+                    required: true,
+                    min: "",
+                    max: ""
+                  }
+                }, {
+//                  id: 4,
+                  type: 'Paragraf',
+                  caption:"Paragraf",
+                  name: "fnhgh"
+                }, {
+//                  id: 5,
+                  type: 'File',
+                  caption: "Ajhkjh",
+                  name: "gfhfg",
+                  info:"",
+                  multiple: false,
+                  validate: {
+                    required: true,
+                    acceptFileTypes: "",
+                    maxFileSize: "", // in bytes
+                    maxNumberOfFiles: "" // if > 0 multiple true
+                  }
+                } ]
+            },
+            {
+              type: "Fieldset",
+              name: "Group B",
+              collapsed: false,
+              elements: [{
+//                id: 0,
+                caption: "Ajhkjh",
+                type: 'Input',
+                name: "fhnngh",
+                format: "caractere neformatate",
+                dbType:"",
+                defaultValue: "",
+                info:"",
+                search:false,
+                validate: {
+                  required: true,
+                  number: false,
+                  unique: false,
+                  email: false,
+                  cnp: false,
+                  minLength: "",
+                  maxLength: "",
+                  min: "",
+                  max: ""
+                }
+              }, {
+//                id: 1,
+                type: 'Select',
+                caption: "Ajhkjh",
+                name: "hfnh",
+                search: false,
+                multiple: false,
+                defaultValue: "",
+                info:"",
+                database: "",
+                property:"",
+                validate: {
+                  required: true,
+                  minLength: "",
+                  maxLength: ""
+                },
+                options: []
+              }, {
+//                id: 2,
+                type: 'Textarea',
+                caption: "Ajhkjh",
+                name: "nghng",
+                info:"",
+                validate: {
+                  required: true,
+                  minLength: "",
+                  maxLength: ""
+                }
+              }, {
+//                id: 3,
+                type: 'Date',
+                caption: "Ajhkjh",
+                name: "gngcn",
+                search: false,
+                defaultValue: "",
+                format: "",
+                info:"",
+                validate: {
+                  required: true,
+                  min: "",
+                  max: ""
+                }
+              }, {
+//                id: 4,
+                type: 'Paragraf',
+                caption:"Paragraf",
+                name: "gfvncgn"
+              }, {
+//                id: 5,
+                type: 'File',
+                caption: "Ajhkjh",
+                name: "dfgdfg",
+                info:"",
+                multiple: false,
+                validate: {
+                  required: true,
+                  acceptFileTypes: "",
+                  maxFileSize: "", // in bytes
+                  maxNumberOfFiles: "" // if > 0 multiple true
+                }
+              } ]
+            }
+          ];
           this.collapse=true;
           var parent = this.parentElement;
           var self = this;
@@ -295,41 +352,18 @@
           };
           PolymerGestures.addEventListener(this.$.ulistForm, 'trackstart', function(e) {
             var li = e.path[0];
-            console.dir(li);
-
-
-//            if (!li.parentNode.host || (li.parentNode.host && li.parentNode.host.nodeName!='GROUP-BASIC')) {
-//              //console.log("ddd");
-//              return; // not a list item; ignore
-//            }
-//            console.log(li.parentNode.host.parentNode);
-////            console.log(this.parentElement);
-//            self.initiateItemDrag(li.parentNode.host.parentNode, e);
               if (li.nodeName=='DIV' && li.getAttribute('type')=='fieldset') {
-                console.log("dddddd");
                 self.initiateItemDrag(li.parentNode, e);
               }
             else{
                 return;
               }
-//              //console.log("ddd");
-//              return; // not a list item; ignore
-//            }
-//            console.log(li.parentNode.host.parentNode);
-////            console.log(this.parentElement);
-//            self.initiateItemDrag(li.parentNode.host.parentNode, e);
-
           });
           PolymerGestures.addEventListener(this.$.ulistForm, 'tap', function(e) {
             var li = e.path[0];
-//            console.log(li.parentNode);
             if (li.nodeName !== 'SPAN') {
               return; // not a list item; ignore
             }
-//            console.log(this.parentElement);
-//            console.log(this.toggleDialog2(li));
-
-            //self.toggleDialog2(self.list[li.parentNode.getAttribute("value")],li.parentNode.getAttribute("value"));
           });
         },
         getRowHeights: function() {
@@ -348,7 +382,6 @@
         },
         //these can be overriden, or the label and id values can be override
         labelAdapter: function(item) {
-          // console.log(item);
           if (typeof item === 'object') {
             return item[this.type];
           }
@@ -438,14 +471,10 @@
           var dropTarget = document.elementFromPoint(globalX + cxo, globalY + cyo);
           this.dragFodder.style.display = '';
           if (dropTarget && dropTarget.handleDragOver) {
-            console.dir(this.currentDropTarget);
-            console.dir(dropTarget);
             if (this.currentDropTarget !== dropTarget) {
-
               if (!dropTarget.canDropItem(this.list, dropTarget.list, this.dragFodder.sourceIndex, this.dragFodder.dragItem, e)) {
                 return;
               }
-              console.log("oit's ok");
               if (this.currentDropTarget) {
                 this.currentDropTarget.handleDragHoverExit(this.dragFodder, globalX + cxo, globalY + cyo);
               }
@@ -461,11 +490,11 @@
           noop(e);
           var dropTarget = this.currentDropTarget;
           var dragFodder = this.dragFodder;
-          console.log(dropTarget);
           dropTarget.listItemDropped(dragFodder);
         },
         //ive had a list item dropped on me do the proper thing
         listItemDropped: function(listItem) {
+
           var self = this;
           var dropSpacer = this.$.ulistForm.querySelector('li.spacer.beBig');
           var items = this.$.ulistForm.querySelectorAll('li').array();
@@ -485,18 +514,10 @@
               listItem.parentElement.removeChild(listItem);
               dropSpacer.classList.remove('beBig');
               dropSpacer.classList.add('beSmall');
-//              console.log(sourceItem);
-//              console.log(JSON.parse(JSON.stringify(sourceItem)));
-
-//              sourceItem.id=insertIndex;
               self.list.splice(insertIndex, 0, JSON.parse(JSON.stringify(sourceItem)));
-
-//              console.log(insertIndex);
               if(sourceItem.name==""){
-//                console.log(self.list);
                 self.toggleDialog2(self.list[insertIndex],insertIndex);
               }
-//              console.log(self.list);
               self.overRow = undefined;
             }, 170);
           });
@@ -521,7 +542,7 @@
         canDropItem: function(sourceList, myList, sourceIndex, item, e) {
           noop(sourceList, myList, sourceIndex, item, e);
 //          console.log(item);
-          if(item.type!='fieldset'){
+          if(item.type!='Fieldset'){
             return false;
           }
           //some examples....
@@ -538,12 +559,9 @@
         initiateItemDrag: function(li, e) {
           //let' attach the this as the drag source to
           //the item were dragging around
-          console.log(li);
           li.dragSource = this;
           li.dragIndex = parseInt(li.getAttribute('value'));
           li.dragItem = this.list[li.dragIndex];
-          console.log(this.list);
-          console.log(li.dragIndex);
           if (!this.canDragItem(this.list, li.dragItem, li.dragIndex, e)) {
             return;
           }
@@ -560,9 +578,6 @@
           var parentBounds = parent.getBoundingClientRect();
           //li.classList.add('level3');
           li.style.width = parentBounds.width + 'px';
-          // if (this.dragFodder) {
-          //     document.body.removeChild(this.dragFodder);
-          // }
           this.list.splice(li.dragIndex, 1);
           this.dragFodder = li;
 
@@ -582,9 +597,6 @@
 
             self.handleDrop(e);
           });
-          // PolymerGestures.addEventListener(li, 'up', function(e) {
-          //     console.log('up', e);
-          // });
           requestAnimationFrame(function() {
             //goAwayer.classList.remove('beBig');
             //goAwayer.classList.add('beSmall');
