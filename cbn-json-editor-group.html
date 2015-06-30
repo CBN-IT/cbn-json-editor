@@ -6,15 +6,15 @@
 <link href="../paper-dialog/paper-action-dialog.html" rel="import">
 
 <!-- <link rel="import" href="../../polymer-gestures.html"> -->
-<polymer-element name="group-basic" attributes="label list collapse id dialog">
+<polymer-element name="cbn-json-editor-group" attributes="label list collapse id dialog">
   <template>
-    <link rel="stylesheet" type="text/css" href="group-basic.css">
+    <link rel="stylesheet" type="text/css" href="cbn-json-editor-group.css">
     <ul id="ulist" class="font-special list" touch-action="pan-y" size="3">
       <template repeat="{{item, i in list}}">
         <li value="{{idAdapter(i)}}_spacer" class="spacer beSmall"></li>
         <!--important:type-item-->
         <li value="{{idAdapter(i)}}"  class="item" type="item" style="padding-left:10px;line-height: 46px;list-style-type: none;font-family: 'Roboto', sans-serif;border-bottom: 1px solid #e0e0e0;cursor: move;background-color: white;color: black;">
-          <span class="head-element">{{item.caption}}</span>
+          <span class="head-element">{{item.label}}</span>
           <span class="info-element">{{item.type}}</span>
           <span class="required-element">
             <template if="{{item.validate.required}}">
@@ -40,7 +40,7 @@
       var noop = function() {
 
       };
-      Polymer('group-basic', { /* jshint ignore:line  */
+      Polymer('cbn-json-editor-group', { /* jshint ignore:line  */
         type: 'type',
 
         list: [],
@@ -84,7 +84,7 @@
           this.initiateBig=this.$.spacer.classList;
           this.collapse=this.collapse || false;
           this.$.ulist.hidden=!this.collapse;
-          console.log(this.form);
+//          console.log(this.form);
           var parent = this.parentElement;
           var self = this;
           parent.oncontextmenu = function() {
@@ -221,7 +221,16 @@
           //obscure what it's over
           this.dragFodder.style.display = 'none';
           var dropTarget = document.elementFromPoint(globalX + cxo, globalY + cyo);
-          if(dropTarget && dropTarget.tagName=="FORM-BASIC" && dropTarget.shadowRoot && dropTarget.shadowRoot.elementFromPoint(globalX + cxo, globalY + cyo)&&
+
+          while (dropTarget != null && dropTarget.tagName!="CBN-JSON-EDITOR-FORM") {
+            if (dropTarget.shadowRoot != null) {
+              dropTarget = dropTarget.shadowRoot.elementFromPoint(globalX + cxo, globalY + cyo)
+            } else {
+              dropTarget = null;
+            }
+          }
+
+          if(
             dropTarget.shadowRoot.elementFromPoint(globalX + cxo, globalY + cyo).tagName=="DIV")
           {
             var index = dropTarget.shadowRoot.elementFromPoint(globalX + cxo, globalY + cyo).getAttribute('value');
@@ -234,12 +243,13 @@
             }
           }
 
-          if(dropTarget && dropTarget.shadowRoot &&  dropTarget.shadowRoot.elementFromPoint(globalX + cxo, globalY + cyo) &&
-            dropTarget.shadowRoot.elementFromPoint(globalX + cxo, globalY + cyo).tagName=="GROUP-BASIC"){
+          if(
+            dropTarget.shadowRoot.elementFromPoint(globalX + cxo, globalY + cyo).tagName.toUpperCase()=="CBN-JSON-EDITOR-GROUP"){
             dropTarget = dropTarget.shadowRoot.elementFromPoint(globalX + cxo, globalY + cyo);
 
           }
           this.dragFodder.style.display = '';
+
           if (dropTarget && dropTarget.handleDragOver) {
             if (this.currentDropTarget !== dropTarget) {
               if (!dropTarget.canDropItem(this.list, dropTarget.list, this.dragFodder.sourceIndex, this.dragFodder.dragItem, e)) {
@@ -277,6 +287,7 @@
           listItem.style.msTransition = '-ms-transform 150ms ease-in';
           listItem.style.oTransition = '-o-transform 150ms ease-in';
           listItem.style.transition = 'transform 150ms ease-in';
+          var that=this;
           requestAnimationFrame(function() {
             self.setCssLocation(listItem.style, targetLeft, targetTop);
             setTimeout(function() {
@@ -285,8 +296,11 @@
               dropSpacer.classList.remove('beBig');
               dropSpacer.classList.add('beSmall');
               self.list.splice(insertIndex, 0, JSON.parse(JSON.stringify(sourceItem)));
+//              that.fire('update-json',{});
               if(sourceItem.name==""){
                 self.toggleDialog2(self.list[insertIndex],insertIndex);
+              }else{
+                that.fire('update-json',{});
               }
               self.overRow = undefined;
             }, 170);
@@ -354,6 +368,7 @@
           //goAwayer.classList.remove('transition');
           goAwayer.classList.add('beBig');
           goAwayer.classList.remove('beSmall');
+//          console.dir(li);
           document.body.appendChild(li);
           PolymerGestures.addEventListener(li, 'track', function(e) {
             self.handleDrag(e);

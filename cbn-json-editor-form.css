@@ -1,7 +1,6 @@
 :host {
-  display: block;
+  /*./display: block;*/
   position: relative;
-  top: 31px;
 }
 * {
   user-select: none;
@@ -9,38 +8,90 @@
   -webkit-user-select: none;
   -ms-user-select: none;
 }
+core-icon-button /deep/ core-icon[role=img] {
+  height: 18px;
+  width: 18px;
+  padding: 1px;
+  margin: 1px;
+  margin-bottom: 30px;
+  text-align: right;
+}
+
+core-icon-button {
+
+  display: inline;
+  float: right;
+  padding: 5px 5px 5px 5px;
+  margin: 13px 10px 1px 1px;
+  height: 30px;
+  width: 30px;
+}
+.info-element{
+  font-size: 11px;
+  color: green;
+  width:25%;
+  display: inline-block;
+}
+.head-element{
+  width:25%;
+  display: inline-block;
+}
+.required-element{
+  font-size: 11px;
+  color: red;
+  width:25%;
+  display: inline-block;
+}
+
 .dnd-header {
   z-index: 1;
   font-family: 'Roboto', sans-serif;
-  text-transform: capitalize;
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 90%;
+  /*text-transform: capitalize;*/
+  /*position: relative;*/
+  /*display: flex;*/
+  /*flex-direction: row;*/
+  /*justify-content: center;*/
+  /*align-items: center;*/
+  /*line-height: 46px;*/
   height: 46px;
   background-color: #00796b;
   color: white;
-  margin-left: 5%;
+  /*margin-left: 5%;*/
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-  overflow: hidden;
+  /*overflow: hidden;*/
+  padding-left:15px;
 }
-.list {
-  top: 46px;
+.fieldset{
+  cursor: pointer;
+}
+.fieldset:hover {
+  color: #87ceeb;
+}
+.trash-group {
+
+  display: inline;
+  float: right;
+  padding: 5px 5px 5px 5px;
+  margin: 9px 10px 1px 1px;
+  height: 30px;
+  width: 30px;
+}
+.listForm {
+  /*top: 31px;*/
+  top:0px;
   background-color: white;
   position: absolute;
-
-  left: 5%;
-  right: 5%;
-  overflow-y: auto;
+  left:0%;
+  right: 0%;
+  /*overflow-y: auto;*/
   list-style-type: none;
   margin: 0px;
   padding-top: 0px;
   padding-left: 0px;
-  bottom: 42px;
+  bottom: 12px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-  height: 454px;
+  height: 725px;
+  overflow: scroll;
 }
 .controls {
   position: absolute;
@@ -125,3 +176,34 @@
 .beBig {
   height: 51px;
 }
+#addGroup::shadow .button-content {
+  padding: 4px;
+  font-size:9pt;
+  color: #000000;
+}
+#addGroup{
+  background: whitesmoke;
+  color: #fff;
+}
+#addGroup,#saveJson::shadow #ripple {
+  color: grey;
+}
+#saveJson::shadow .button-content {
+  padding: 4px;
+  font-size:9pt;
+  color: #000000;
+}
+#saveJson{
+  background: whitesmoke;
+  color: #fff;
+}
+paper-tabs,paper-tab{
+  height: 30px;
+}
+#jsonTextarea{
+  height:675px;
+  /*margin-top:20px;*/
+  width:99.5%;
+  overflow: scroll;
+}
+

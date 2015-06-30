@@ -1,0 +1,33 @@
+
+<link rel="import" href="../polymer/polymer.html">
+
+<link href="cbn-json-editor-elements.html" rel="import">
+<link href="cbn-json-editor-dialog.html" rel="import">
+<link href="cbn-json-editor-form.html" rel="import">
+<link href="../paper-dialog/paper-action-dialog.html" rel="import">
+
+
+<polymer-element name="cbn-json-editor" attributes="saveUrl data namespace">
+  <template>
+    <link rel="stylesheet" href="cbn-json-editor.css">
+    <div class="">
+      <div class="overlay-container" layout horizontal>
+        <cbn-json-editor-elements id="elements" class="column" form="{{$.form}}"></cbn-json-editor-elements>
+        <cbn-json-editor-form data="{{data}}" id="form" collapse="true" flex="true" class="columnBig"
+                              dialog="{{$.contentDialog}}"
+                              namespace="{{namespace}}"></cbn-json-editor-form>
+      </div>
+      <paper-action-dialog style="top:30px;left:430px" id="dialog2" class="dialog" autoCloseDisabled layered="false"
+                           transition="core-transition-center">
+        <cbn-json-editor-dialog id="contentDialog" form="{{$.form}}"></cbn-json-editor-dialog>
+      </paper-action-dialog>
+    </div>
+  </template>
+  <script>
+    (function () {
+      Polymer('cbn-json-editor', {
+
+      });
+    })();
+</script>
+</polymer-element>
