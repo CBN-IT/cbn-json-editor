@@ -71,7 +71,7 @@
                url="/salveaza/SaveFormular"
                handleAs="json"
                method="POST"
-               params='{{ {"namespace" : namespace ,"_hash" : _hash ,"json": jsonAjax} }}'
+               params='{{ {"namespace" : namespace ,"_hash" : _hash , "type": type ,"json": jsonAjax} }}'
                response="{{ response }}" on-core-response="alertSaved"></core-ajax>
 
 
@@ -133,6 +133,7 @@
           this.list=this.json.elements;
           this.$.dynamicForm.render(null,null,true);
           this._hash=this.data._hash;
+          this.type=this.data.name;
         },
         saveJson:function(){
           try{

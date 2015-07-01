@@ -25,12 +25,12 @@
                         <div class="column-two"><input value="{{content.label}}"></div>
                         <div class="column-three"> Formatare text:</div>
                         <div class="column-four">
-                            <select class="select" value="{{content.format}}" required>
-                                <option>caractere neformatate</option>
-                                <option>lowerCase</option>
-                                <option>upperCase</option>
-                                <option>sentenceCase</option>
-                                <option>capitalizeWords</option>
+                            <select class="select" value="{{content.format}}">
+                                <option value="" selected="selected">caractere neformatate</option>
+                                <option value="lowercase">lowercase</option>
+                                <option value="uppercase">uppercase</option>
+                                <option value="sentenceCase">sentenceCase</option>
+                                <option value="capitalize">capitalizeWords</option>
                             </select>
                         </div>
                         <div class="column-one">
@@ -41,6 +41,7 @@
                         <div class="column-two"><input value="{{content.name}}" required></div>
                         <div class="column-three">Stocare ca:</div>
                         <div class="column-four" >
+
                             <select class="select" required value="{{content.dbType}}">
                                 <option value="string">sir de caractere</option>
                                 <option value="long">numar intreg</option>
