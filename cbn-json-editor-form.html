@@ -13,7 +13,7 @@
 <link href="../cbn-form/cbn-form.html" rel="import">
 <link href="../cbn-form/cbn-dynamic-form.html" rel="import">
 <link href="../cbn-input/cbn-input-bundle.html" rel="import">
-<link href="../ace-element/ace-element.html" rel="import">
+<link href="../cbn-ace-editor/cbn-ace-editor.html" rel="import">
 <link href="../core-ajax/core-ajax.html" rel="import">
 
 
@@ -53,8 +53,8 @@
       </ul></div>
       <div>
         <!--<textarea id="jsonTextarea" value="{{jsonString}}"></textarea>-->
-        <ace-element class="aceElement" mode="javascript" fontSize="17px"
-                     value="{{jsonString}}" style="height: 690px;position: relative;" id="editorJson"></ace-element>
+        <cbn-ace-editor class="aceElement" mode="javascript" fontSize="17px"
+                     value="{{jsonString}}" style="height: 690px;position: relative;" id="editorJson" theme="chrome"></cbn-ace-editor>
         <paper-button on-click="{{saveJson}}" id="saveJson" style="margin-top:16px">Salveaza</paper-button>
         <!--<paper-button id="save" on-click="{{clickSave}}"  style="background: #4285f4;color: #fff;">Salveaza</paper-button>-->
       </div>
