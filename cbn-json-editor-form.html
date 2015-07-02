@@ -72,7 +72,7 @@
                handleAs="json"
                method="POST"
                params='{{ {"namespace" : namespace ,"_hash" : _hash , "type": type ,"json": jsonAjax} }}'
-               response="{{ response }}" on-core-response="alertSaved"></core-ajax>
+               response="{{ response }}" on-core-complete="{{alertSaved}}"></core-ajax>
 
 
 
@@ -152,8 +152,9 @@
           }
         },
         alertSaved:function(){
-
-          alert("Json salvat");
+          this.fire('save-local-json', {json: this.json, type:this.type});
+          console.log("saved");
+         // alert("Json salvat");
       },
         addGroup: function(){
           var newGroup={
