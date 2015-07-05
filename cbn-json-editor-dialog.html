@@ -25,7 +25,7 @@
                         <div class="column-two"><input value="{{content.label}}"></div>
                         <div class="column-three"> Formatare text:</div>
                         <div class="column-four">
-                            <select class="select" value="{{content.format}}">
+                            <select class="select" value="{{content.format}}" value="{{content.validation.number.type}}">
                                 <option value="" selected="selected">caractere neformatate</option>
                                 <option value="lowercase">lowercase</option>
                                 <option value="uppercase">uppercase</option>
@@ -55,7 +55,7 @@
                         <div class="column-four" ><input class="checkbox" type="checkbox" checked="{{content.validation.unique}}"></div>
 
                         <div class="column-one">Este numar:</div>
-                        <div class="column-two"><input class="checkbox" type="checkbox" checked="{{content.validation.number}}"></div>
+                        <div class="column-two"><input class="checkbox" type="checkbox" checked="{{content.validation.number.validate}}"></div>
                         <div class="column-three"> Apare la cautare:</div>
                         <div class="column-four" ><input class="checkbox" type="checkbox" checked="{{content.search}}"></div>
 
@@ -621,6 +621,7 @@
                     e.preventDefault();
                     this.$.editElement.checkValidity();
                     if(this.checkUnique(this.content.name)){
+                        this.content.validation.number.type=this.content.dbType;
                         this.item.list[this.index]=this.content;
 
 
