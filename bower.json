@@ -1,25 +1,17 @@
 {
-  "name": "fin-hypergrid-dnd-list",
+  "name": "cbn-json-editor",
   "version": "0.0.0",
-  "authors": [
-    "stevewirts <anonymous@example.com>"
-  ],
-  "description": "Element providing solution to no problem in particular.",
-  "keywords": [
-    "web-component",
-    "web-components",
-    "polymer"
-  ],
-  "main": "fin-hypergrid-dnd-list.html",
-  "license": "MIT",
-  "homepage": "https://github.com/stevewirts/fin-hypergrid-dnd-list/",
-  "ignore": [
-    "/.*",
-    "/tests/"
-  ],
+  "main": "cbn-json-editor.html",
   "dependencies": {
+      "polymer": "Polymer/polymer#^0.5",
+      "paper-dialog": "Polymer/paper-dialog#^0.5",
+      "paper-ripple": "Polymer/paper-ripple#^0.5",
+      "core-a11y-keys": "Polymer/core-a11y-keys#^0.5",
+      "paper-button": "Polymer/paper-button#^0.5",
+      "cbn-input": "git@bitbucket.org:cbn-it/cbn-input.git#master",
+      "cbn-select": "git@bitbucket.org:cbn-it/cbn-select.git#master"
   },
   "devDependencies": {
-    "polymer": "Polymer/polymer#master"
+    
   }
 }
