@@ -4,324 +4,324 @@
 <link rel="import" href="../core-icon-button/core-icon-button.html">
 <!-- <link rel="import" href="../../polymer-gestures.html"> -->
 <polymer-element name="cbn-json-editor-elements" attributes="label list form">
-  <template>
-    <!-- <link href='http://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'> -->
-    <link rel="stylesheet" href="cbn-json-editor-elements.css">
+	<template>
+		<!-- <link href='http://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'> -->
+		<link rel="stylesheet" href="cbn-json-editor-elements.css">
 
-    <div class="font-special toolbar dnd-header">{{title}}</div>
-    <ul id="ulist" class="font-special list" style="" touch-action="pan-y" size="3">
-      <template repeat="{{item, i in list}}">
-        <li value="{{idAdapter(i)}}_spacer" class="spacer beSmall"></li>
-        <li value="{{idAdapter(i)}}" class="item"
-            style="-moz-user-select: none;-webkit-user-select: none;-ms-user-select: none;user-select:none;white-space:nowrap;line-height: 46px;list-style-type: none;font-family: 'Roboto', sans-serif;border-bottom: 1px solid #e0e0e0;text-transform: capitalize;cursor: move;padding-left:10px;background-color: white;color: black;">
-          {{labelAdapter(item)}}
+		<div class="font-special toolbar dnd-header">{{title}}</div>
+		<ul id="ulist" class="font-special list" style="" touch-action="pan-y" size="3">
+			<template repeat="{{item, i in list}}">
+				<li value="{{idAdapter(i)}}_spacer" class="spacer beSmall"></li>
+				<li value="{{idAdapter(i)}}" class="item"
+					style="-moz-user-select: none;-webkit-user-select: none;-ms-user-select: none;user-select:none;white-space:nowrap;line-height: 46px;list-style-type: none;font-family: 'Roboto', sans-serif;border-bottom: 1px solid #e0e0e0;text-transform: capitalize;cursor: move;padding-left:10px;background-color: white;color: black;">
+					{{labelAdapter(item)}}
 
 
-        </li>
-      </template>
-      <li value="last_spacer" class="spacer beSmall"></li>
-    </ul>
-    </div>
+				</li>
+			</template>
+			<li value="last_spacer" class="spacer beSmall"></li>
+		</ul>
+		</div>
 
-  </template>
-  <script>
+	</template>
+	<script>
 
-    /* global PolymerGestures */
-    'use strict';
+		/* global PolymerGestures */
+		'use strict';
 
-    (function () {
-      var noop = function () {
+		(function () {
+			var noop = function () {
 
-      };
-      Polymer('cbn-json-editor-elements', {
-        /* jshint ignore:line  */
-        type: 'type',
-        form: '',
-        indexGroup: '',
-        attached: function () {
-          // populate the element’s data model
-          // (the salutations array)
-          this.title = 'Elements';
-          this.list = [
-            {
+			};
+			Polymer('cbn-json-editor-elements', {
+				/* jshint ignore:line  */
+				type: 'type',
+				form: '',
+				indexGroup: '',
+				attached: function () {
+					// populate the element’s data model
+					// (the salutations array)
+					this.title = 'Elements';
+					this.list = [
+						{
 //            id: 0,
-              label: "",
-              type: 'text',
-              name: "",
-              format: "caractere neformatate",
-              dbType: "",
-              defaultValue: "",
-              info: "",
-              search: false,
-              className: "col-xs-12 col-sm-6 col-lg-4",
-              validation: {
-                required: false,
-                "number": { "validate": false, "type": "" },
-                unique: false,
-                email: false,
-                cnp: false,
-                cif:false,
-                minLength: "",
-                maxLength: "",
-                min: "",
-                max: ""
-              },
-              "autoValidate": true,
-              "decorator": "cbn-input-decorator",
-              "floatingLabel": true
-            }, {
+							label: "",
+							type: 'text',
+							name: "",
+							format: "caractere neformatate",
+							dbType: "",
+							defaultValue: "",
+							info: "",
+							search: false,
+							className: "col-xs-12 col-sm-6 col-lg-4",
+							validation: {
+								required: false,
+								"number": { "validate": false, "type": "" },
+								unique: false,
+								email: false,
+								cnp: false,
+								cif:false,
+								minLength: "",
+								maxLength: "",
+								min: "",
+								max: ""
+							},
+							"autoValidate": true,
+							"decorator": "cbn-input-decorator",
+							"floatingLabel": true
+						}, {
 //            id: 1,
-              type: 'select',
-              label: "",
-              name: "",
-              search: false,
-              multiple: false,
-              defaultValue: "",
-              info: "",
-              database: "",
-              property: "",
-              "freeText": true,
-              className: "col-xs-12 col-sm-6 col-lg-4",
-              validation: {
-                required: false,
-                minLength: "",
-                maxLength: ""
-              },
-              "autoValidate": true,
-              options: [],
-              "decorator": "cbn-input-decorator",
-              "floatingLabel": true
-            }, {
+							type: 'select',
+							label: "",
+							name: "",
+							search: false,
+							multiple: false,
+							defaultValue: "",
+							info: "",
+							database: "",
+							property: "",
+							"freeText": true,
+							className: "col-xs-12 col-sm-6 col-lg-4",
+							validation: {
+								required: false,
+								minLength: "",
+								maxLength: ""
+							},
+							"autoValidate": true,
+							options: [],
+							"decorator": "cbn-input-decorator",
+							"floatingLabel": true
+						}, {
 //            id: 2,
-              type: 'textarea',
-              label: "",
-              name: "",
-              info: "",
-              className: "col-xs-12 col-sm-6 col-lg-4",
-              validation: {
-                required: false,
-                minLength: "",
-                maxLength: ""
-              },
-              "autoValidate": true,
-              "decorator": "cbn-input-decorator",
-              "floatingLabel": true
-            }, {
+							type: 'textarea',
+							label: "",
+							name: "",
+							info: "",
+							className: "col-xs-12 col-sm-6 col-lg-4",
+							validation: {
+								required: false,
+								minLength: "",
+								maxLength: ""
+							},
+							"autoValidate": true,
+							"decorator": "cbn-input-decorator",
+							"floatingLabel": true
+						}, {
 //            id: 3,
-              type: 'Date',
-              label: "",
-              name: "",
-              search: false,
-              defaultValue: "",
-              format: "",
-              info: "",
-              className: "col-xs-12 col-sm-6 col-lg-4",
-              validation: {
-                required: false,
-                min: "",
-                max: ""
-              },
-              "autoValidate": true,
-              "decorator": "cbn-input-decorator",
-              "floatingLabel": true
-            }, {
+							type: 'date',
+							label: "",
+							name: "",
+							search: false,
+							defaultValue: "",
+							format: "",
+							info: "",
+							className: "col-xs-12 col-sm-6 col-lg-4",
+							validation: {
+								required: false,
+								min: "",
+								max: ""
+							},
+							"autoValidate": true,
+							"decorator": "cbn-input-decorator",
+							"floatingLabel": true
+						}, {
 //            id: 4,
-              type: 'Paragraf',
-              label: "Paragraf",
-              name: "",
-              className: "col-xs-12 col-sm-6 col-lg-4"
+							type: 'paragraf',
+							label: "Paragraf",
+							name: "",
+							className: "col-xs-12 col-sm-6 col-lg-4"
 
-            }, {
+						}, {
 //            id: 5,
-              type: 'File',
-              label: "",
-              name: "",
-              info: "",
-              multiple: false,
-              className: "col-xs-12 col-sm-6 col-lg-4",
-              validation: {
-                required: false,
-                acceptFileTypes: "",
-                maxFileSize: "", // in bytes
-                maxNumberOfFiles: "" // if > 0 multiple true
-              },
-              "autoValidate": true,
-              "decorator": "cbn-input-decorator",
-              "floatingLabel": true
-            }];
-          this.aux = [{
+							type: 'file',
+							label: "",
+							name: "",
+							info: "",
+							multiple: false,
+							className: "col-xs-12 col-sm-6 col-lg-4",
+							validation: {
+								required: false,
+								accept: "",
+								maxFileSize: "", // in bytes
+								maxNumberOfFiles: "" // if > 0 multiple true
+							},
+							"autoValidate": true,
+							"decorator": "cbn-input-decorator",
+							"floatingLabel": true
+						}];
+					this.aux = [{
 //            id: 0,
-            label: "",
-            type: 'text',
-            name: "",
-            format: "",
-            dbType: "",
-            defaultValue: "",
-            info: "",
-            search: false,
-            className: "col-xs-12 col-sm-6 col-lg-4",
-            validation: {
-              required: false,
-              "number": { "validate": false, "type": "" },
-              unique: false,
-              email: false,
-              cnp: false,
-              cif:false,
-              minLength: "",
-              maxLength: "",
-              min: "",
-              max: ""
-            },
-            "autoValidate": true,
-            "decorator": "cbn-input-decorator",
-            "floatingLabel": true
-          },
-            {
+						label: "",
+						type: 'text',
+						name: "",
+						format: "",
+						dbType: "",
+						defaultValue: "",
+						info: "",
+						search: false,
+						className: "col-xs-12 col-sm-6 col-lg-4",
+						validation: {
+							required: false,
+							"number": { "validate": false, "type": "" },
+							unique: false,
+							email: false,
+							cnp: false,
+							cif:false,
+							minLength: "",
+							maxLength: "",
+							min: "",
+							max: ""
+						},
+						"autoValidate": true,
+						"decorator": "cbn-input-decorator",
+						"floatingLabel": true
+					},
+						{
 //            id: 1,
-              type: 'select',
-              label: "",
-              name: "",
-              search: false,
-              multiple: false,
-              defaultValue: "",
-              info: "",
-              database: "",
-              property: "",
-              "freeText": true,
-              className: "col-xs-12 col-sm-6 col-lg-4",
-              validation: {
-                required: false,
-                minLength: "",
-                maxLength: ""
-              },
-              "autoValidate": true,
-              options: [],
-              "decorator": "cbn-input-decorator",
-              "floatingLabel": true
-            }, {
+							type: 'select',
+							label: "",
+							name: "",
+							search: false,
+							multiple: false,
+							defaultValue: "",
+							info: "",
+							database: "",
+							property: "",
+							"freeText": true,
+							className: "col-xs-12 col-sm-6 col-lg-4",
+							validation: {
+								required: false,
+								minLength: "",
+								maxLength: ""
+							},
+							"autoValidate": true,
+							options: [],
+							"decorator": "cbn-input-decorator",
+							"floatingLabel": true
+						}, {
 //            id: 2,
-            type: 'textarea',
-            label: "",
-            name: "",
-            info: "",
-            className: "col-xs-12 col-sm-6 col-lg-4",
-            validation: {
-              required: false,
-              minLength: "",
-              maxLength: ""
-            },
-              "autoValidate": true,
-            "decorator": "cbn-input-decorator",
-            "floatingLabel": true
-          }, {
+							type: 'textarea',
+							label: "",
+							name: "",
+							info: "",
+							className: "col-xs-12 col-sm-6 col-lg-4",
+							validation: {
+								required: false,
+								minLength: "",
+								maxLength: ""
+							},
+							"autoValidate": true,
+							"decorator": "cbn-input-decorator",
+							"floatingLabel": true
+						}, {
 //            id: 3,
-            type: 'Date',
-            label: "",
-            name: "",
-            search: false,
-            defaultValue: "",
-            format: "",
-            info: "",
-            className: "col-xs-12 col-sm-6 col-lg-4",
-            validation: {
-              required: false,
-              min: "",
-              max: ""
-            },
-              "autoValidate": true,
-            "decorator": "cbn-input-decorator",
-            "floatingLabel": true
-          }, {
+							type: 'date',
+							label: "",
+							name: "",
+							search: false,
+							defaultValue: "",
+							format: "",
+							info: "",
+							className: "col-xs-12 col-sm-6 col-lg-4",
+							validation: {
+								required: false,
+								min: "",
+								max: ""
+							},
+							"autoValidate": true,
+							"decorator": "cbn-input-decorator",
+							"floatingLabel": true
+						}, {
 //            id: 4,
-            type: 'Paragraf',
-            label: "Paragraf",
-            name: "",
-            className: "col-xs-12 col-sm-6 col-lg-4"
-          }, {
+							type: 'paragraf',
+							label: "Paragraf",
+							name: "",
+							className: "col-xs-12 col-sm-6 col-lg-4"
+						}, {
 //            id: 5,
-            type: 'File',
-            label: "",
-            name: "",
-            info: "",
-            multiple: false,
-            className: "col-xs-12 col-sm-6 col-lg-4",
-            validation: {
-              required: false,
-              acceptFileTypes: "",
-              maxFileSize: "", // in bytes
-              maxNumberOfFiles: "" // if > 0 multiple true
-            },
-              "autoValidate": true,
-            "decorator": "cbn-input-decorator",
-            "floatingLabel": true
-          }];
-          var parent = this.parentElement;
-          var self = this;
-          parent.oncontextmenu = function () {
-            return false;
-          };
-          PolymerGestures.addEventListener(this.$.ulist, 'trackstart', function (e) {
-            var li = e.path[0];
-            if (li.nodeName !== 'LI') {
-              return; // not a list item; ignore
-            }
-            self.initiateItemDrag(li, e);
-          });
-        },
-        formChanged: function () {
+							type: 'file',
+							label: "",
+							name: "",
+							info: "",
+							multiple: false,
+							className: "col-xs-12 col-sm-6 col-lg-4",
+							validation: {
+								required: false,
+								accept: "",
+								maxFileSize: "", // in bytes
+								maxNumberOfFiles: "" // if > 0 multiple true
+							},
+							"autoValidate": true,
+							"decorator": "cbn-input-decorator",
+							"floatingLabel": true
+						}];
+					var parent = this.parentElement;
+					var self = this;
+					parent.oncontextmenu = function () {
+						return false;
+					};
+					PolymerGestures.addEventListener(this.$.ulist, 'trackstart', function (e) {
+						var li = e.path[0];
+						if (li.nodeName !== 'LI') {
+							return; // not a list item; ignore
+						}
+						self.initiateItemDrag(li, e);
+					});
+				},
+				formChanged: function () {
 //          console.log(this.form);
-        },
-        getRowHeights: function () {
-          var bounds = this.$.ulist.getBoundingClientRect();
-          var items = this.$.ulist.querySelectorAll('li.item').array();
-          if (items.length === 0) {
-            return [0];
-          }
-          var boundries = items.map(function (e) {
-            return e.getBoundingClientRect().top - bounds.top;
-          });
-          var last = items[items.length - 1];
-          boundries.push(boundries[boundries.length - 1] + last.getBoundingClientRect().height);
-          boundries[0] = 0;
-          return boundries;
+				},
+				getRowHeights: function () {
+					var bounds = this.$.ulist.getBoundingClientRect();
+					var items = this.$.ulist.querySelectorAll('li.item').array();
+					if (items.length === 0) {
+						return [0];
+					}
+					var boundries = items.map(function (e) {
+						return e.getBoundingClientRect().top - bounds.top;
+					});
+					var last = items[items.length - 1];
+					boundries.push(boundries[boundries.length - 1] + last.getBoundingClientRect().height);
+					boundries[0] = 0;
+					return boundries;
 
-        },
-        //these can be overriden, or the label and id values can be override
-        labelAdapter: function (item) {
-          //console.log(item);
-          if (typeof item === 'object') {
-            return item.type;
-          }
-          return item;
-        },
-        idAdapter: function (item) {
-          //console.log(item);
-          if (typeof item === 'object') {
-            return item[this.id];
-          }
-          return item;
-        },
-        //I've just been dragged over, this is the notification
-        handleDragHoverEnter: function (dragged, x, y) {
-          //console.log(this);
-          //console.log("ccc");
-          noop(dragged, x, y);
-        },
+				},
+				//these can be overriden, or the label and id values can be override
+				labelAdapter: function (item) {
+					//console.log(item);
+					if (typeof item === 'object') {
+						return item.type;
+					}
+					return item;
+				},
+				idAdapter: function (item) {
+					//console.log(item);
+					if (typeof item === 'object') {
+						return item[this.id];
+					}
+					return item;
+				},
+				//I've just been dragged over, this is the notification
+				handleDragHoverEnter: function (dragged, x, y) {
+					//console.log(this);
+					//console.log("ccc");
+					noop(dragged, x, y);
+				},
 
-        //I've just had a dragging operation leave me and
-        //begin hovering over another drag target
-        handleDragHoverExit: function (dragged, x, y) {
-          //console.log("bbb");
-          noop(dragged, x, y);
-          this.correctItemState();
-        },
+				//I've just had a dragging operation leave me and
+				//begin hovering over another drag target
+				handleDragHoverExit: function (dragged, x, y) {
+					//console.log("bbb");
+					noop(dragged, x, y);
+					this.correctItemState();
+				},
 
-        //I'm being dragged over
-        handleDragOver: function (dragged, x, y) {
-          //console.log("aaaa");
+				//I'm being dragged over
+				handleDragOver: function (dragged, x, y) {
+					//console.log("aaaa");
 //          var self = this;
 //          var bounds = this.$.ulist.getBoundingClientRect();
-          //var items = this.$.ulist.querySelectorAll('li.item').array();
+					//var items = this.$.ulist.querySelectorAll('li.item').array();
 //          var boundries = this.getRowHeights();
 //          var localY = y - bounds.top;
 //          var minValue = 1000000;
@@ -334,146 +334,146 @@
 //            }
 //          }
 //          var overRow = minIndex;
-          /*if (this.overRow !== overRow) {
-           if (this.isTransition) {
-           return;
-           }
-           this.isTransition = true;
-           var spacers = this.$.ulist.querySelectorAll('li.spacer');
-           //shrink previous if it exists
-           if (this.overRow || this.overRow === 0) {
-           var previous = this.$.ulist.querySelector('li.spacer.beBig');
-           if (previous) {
-           previous.classList.add('transition');
-           //                requestAnimationFrame(function() {
-           //                  previous.classList.remove('beBig');
-           //                  previous.classList.add('beSmall');
-           //                });
-           }
-           }
+					/*if (this.overRow !== overRow) {
+					 if (this.isTransition) {
+					 return;
+					 }
+					 this.isTransition = true;
+					 var spacers = this.$.ulist.querySelectorAll('li.spacer');
+					 //shrink previous if it exists
+					 if (this.overRow || this.overRow === 0) {
+					 var previous = this.$.ulist.querySelector('li.spacer.beBig');
+					 if (previous) {
+					 previous.classList.add('transition');
+					 //                requestAnimationFrame(function() {
+					 //                  previous.classList.remove('beBig');
+					 //                  previous.classList.add('beSmall');
+					 //                });
+					 }
+					 }
 
-           //expand current
-           this.overRow = overRow;
-           var spacer = spacers[overRow];
-           spacer.classList.add('transition');
-           //            requestAnimationFrame(function() {
-           //              spacer.classList.remove('beSmall');
-           //              spacer.classList.add('beBig');
-           //              setTimeout(function() {
-           //                spacer.classList.remove('transition');
-           //                self.isTransition = false;
-           //              }, 210);
-           //            });
-           }*/
-        },
-        handleDrag: function (e) {
-          if (!this.dragFodder) {
-            return;
-          }
-          var dragFodderRect = this.dragFodder.getBoundingClientRect();
-          var cxo = dragFodderRect.width / 2;
-          var cyo = dragFodderRect.height / 2;
+					 //expand current
+					 this.overRow = overRow;
+					 var spacer = spacers[overRow];
+					 spacer.classList.add('transition');
+					 //            requestAnimationFrame(function() {
+					 //              spacer.classList.remove('beSmall');
+					 //              spacer.classList.add('beBig');
+					 //              setTimeout(function() {
+					 //                spacer.classList.remove('transition');
+					 //                self.isTransition = false;
+					 //              }, 210);
+					 //            });
+					 }*/
+				},
+				handleDrag: function (e) {
+					if (!this.dragFodder) {
+						return;
+					}
+					var dragFodderRect = this.dragFodder.getBoundingClientRect();
+					var cxo = dragFodderRect.width / 2;
+					var cyo = dragFodderRect.height / 2;
 
-          var globalX = (e.x || e.clientX) - this.dragEventStart[0];
-          var globalY = (e.y || e.clientY) - this.dragEventStart[1];
-          //var sx = this.dragItemStart[0];
-          //var sy = this.dragItemStart[1];
-          this.setCssLocation(this.dragFodder.style, globalX, globalY);
+					var globalX = (e.x || e.clientX) - this.dragEventStart[0];
+					var globalY = (e.y || e.clientY) - this.dragEventStart[1];
+					//var sx = this.dragItemStart[0];
+					//var sy = this.dragItemStart[1];
+					this.setCssLocation(this.dragFodder.style, globalX, globalY);
 
-          //lets check for a drag over....
-          //we need to make invisible briefly so as not to
-          //obscure what it's over
+					//lets check for a drag over....
+					//we need to make invisible briefly so as not to
+					//obscure what it's over
 
-          this.dragFodder.style.display = 'none';
+					this.dragFodder.style.display = 'none';
 
-          var dropTarget = document.elementFromPoint(globalX + cxo, globalY + cyo);
-          var aux=dropTarget;
+					var dropTarget = document.elementFromPoint(globalX + cxo, globalY + cyo);
+					var aux=dropTarget;
 
-          while (dropTarget != null && dropTarget.tagName!="CBN-JSON-EDITOR-FORM") {
-            if (dropTarget.shadowRoot != null) {
-              dropTarget = dropTarget.shadowRoot.elementFromPoint(globalX + cxo, globalY + cyo)
-            } else {
-              dropTarget = null;
-            }
-          }
+					while (dropTarget != null && dropTarget.tagName!="CBN-JSON-EDITOR-FORM") {
+						if (dropTarget.shadowRoot != null) {
+							dropTarget = dropTarget.shadowRoot.elementFromPoint(globalX + cxo, globalY + cyo)
+						} else {
+							dropTarget = null;
+						}
+					}
 //          console.log(dropTarget);
 //          if(dropTarget==null){
 //            dropTarget=this;
 //          }
-          if(dropTarget && dropTarget.shadowRoot.elementFromPoint(globalX + cxo, globalY + cyo).tagName == "DIV"){
-            var index = dropTarget.shadowRoot.elementFromPoint(globalX + cxo, globalY + cyo).getAttribute('value');
-            if (dropTarget.list[index] && dropTarget.list[index].collapsed == false &&
-              dropTarget.timeout == '' && this.indexGroup == index) {
-              clearTimeout(this.form.timeout);
-              this.form.timeout = '';
-              dropTarget.timeout = setTimeout(function () {
-                dropTarget.list[index].collapsed = true;
+					if(dropTarget && dropTarget.shadowRoot.elementFromPoint(globalX + cxo, globalY + cyo).tagName == "DIV"){
+						var index = dropTarget.shadowRoot.elementFromPoint(globalX + cxo, globalY + cyo).getAttribute('value');
+						if (dropTarget.list[index] && dropTarget.list[index].collapsed == false &&
+							dropTarget.timeout == '' && this.indexGroup == index) {
+							clearTimeout(this.form.timeout);
+							this.form.timeout = '';
+							dropTarget.timeout = setTimeout(function () {
+								dropTarget.list[index].collapsed = true;
 
-              }, 1000);
-            }
-            else if (dropTarget.list[index] && dropTarget.list[index].collapsed == false && this.indexGroup != index) {
-              clearTimeout(this.form.timeout);
-              this.form.timeout = '';
-              dropTarget.timeout = setTimeout(function () {
-                dropTarget.list[index].collapsed = true;
+							}, 1000);
+						}
+						else if (dropTarget.list[index] && dropTarget.list[index].collapsed == false && this.indexGroup != index) {
+							clearTimeout(this.form.timeout);
+							this.form.timeout = '';
+							dropTarget.timeout = setTimeout(function () {
+								dropTarget.list[index].collapsed = true;
 
-              }, 1000);
-            }
-          }
+							}, 1000);
+						}
+					}
 
-          if (
-            dropTarget && dropTarget.shadowRoot.elementFromPoint(globalX + cxo, globalY + cyo).tagName == "CBN-JSON-EDITOR-GROUP") {
-            dropTarget = dropTarget.shadowRoot.elementFromPoint(globalX + cxo, globalY + cyo);
-          }
-/*
-          if (dropTarget && dropTarget.tagName == "CBN-JSON-EDITOR-FORM" && dropTarget.shadowRoot && dropTarget.shadowRoot.elementFromPoint(globalX + cxo, globalY + cyo) &&
-            dropTarget.shadowRoot.elementFromPoint(globalX + cxo, globalY + cyo).tagName == "DIV") {
-            var index = dropTarget.shadowRoot.elementFromPoint(globalX + cxo, globalY + cyo).getAttribute('value');
-            if (dropTarget.list[index] && dropTarget.list[index].collapsed == false &&
-              dropTarget.timeout == '' && this.indexGroup == index) {
-              clearTimeout(this.form.timeout);
-              this.form.timeout = '';
-              dropTarget.timeout = setTimeout(function () {
-                dropTarget.list[index].collapsed = true;
+					if (
+						dropTarget && dropTarget.shadowRoot.elementFromPoint(globalX + cxo, globalY + cyo).tagName == "CBN-JSON-EDITOR-GROUP") {
+						dropTarget = dropTarget.shadowRoot.elementFromPoint(globalX + cxo, globalY + cyo);
+					}
+					/*
+					 if (dropTarget && dropTarget.tagName == "CBN-JSON-EDITOR-FORM" && dropTarget.shadowRoot && dropTarget.shadowRoot.elementFromPoint(globalX + cxo, globalY + cyo) &&
+					 dropTarget.shadowRoot.elementFromPoint(globalX + cxo, globalY + cyo).tagName == "DIV") {
+					 var index = dropTarget.shadowRoot.elementFromPoint(globalX + cxo, globalY + cyo).getAttribute('value');
+					 if (dropTarget.list[index] && dropTarget.list[index].collapsed == false &&
+					 dropTarget.timeout == '' && this.indexGroup == index) {
+					 clearTimeout(this.form.timeout);
+					 this.form.timeout = '';
+					 dropTarget.timeout = setTimeout(function () {
+					 dropTarget.list[index].collapsed = true;
 
-              }, 1000);
-            }
-            else if (dropTarget.list[index] && dropTarget.list[index].collapsed == false && this.indexGroup != index) {
-              clearTimeout(this.form.timeout);
-              this.form.timeout = '';
-              dropTarget.timeout = setTimeout(function () {
-                dropTarget.list[index].collapsed = true;
+					 }, 1000);
+					 }
+					 else if (dropTarget.list[index] && dropTarget.list[index].collapsed == false && this.indexGroup != index) {
+					 clearTimeout(this.form.timeout);
+					 this.form.timeout = '';
+					 dropTarget.timeout = setTimeout(function () {
+					 dropTarget.list[index].collapsed = true;
 
-              }, 1000);
-            }
-          }*/
-          /*
-          if (
-            dropTarget && dropTarget.shadowRoot && dropTarget.shadowRoot.elementFromPoint(globalX + cxo, globalY + cyo) &&
-            dropTarget.shadowRoot.elementFromPoint(globalX + cxo, globalY + cyo).tagName == "GROUP-BASIC") {
-            dropTarget = dropTarget.shadowRoot.elementFromPoint(globalX + cxo, globalY + cyo);
-          }*/
+					 }, 1000);
+					 }
+					 }*/
+					/*
+					 if (
+					 dropTarget && dropTarget.shadowRoot && dropTarget.shadowRoot.elementFromPoint(globalX + cxo, globalY + cyo) &&
+					 dropTarget.shadowRoot.elementFromPoint(globalX + cxo, globalY + cyo).tagName == "GROUP-BASIC") {
+					 dropTarget = dropTarget.shadowRoot.elementFromPoint(globalX + cxo, globalY + cyo);
+					 }*/
 //          var aux=this.currentDropTarget;
-          this.dragFodder.style.display = '';
-          if(!dropTarget){
-            if(this.currentDropTarget){
-              this.currentDropTarget.handleDragHoverExit(this.dragFodder, globalX + cxo, globalY + cyo);
-            }
+					this.dragFodder.style.display = '';
+					if(!dropTarget){
+						if(this.currentDropTarget){
+							this.currentDropTarget.handleDragHoverExit(this.dragFodder, globalX + cxo, globalY + cyo);
+						}
 
-            this.currentDropTarget=null;
-          }
-          else if(dropTarget.handleDragOver){
-            if (this.currentDropTarget !== dropTarget) {
-              if (!dropTarget.canDropItem(this.list, dropTarget.list, this.dragFodder.sourceIndex, this.dragFodder.dragItem, e)) {
-                return;
-              }
-              if (this.currentDropTarget) {
-                this.currentDropTarget.handleDragHoverExit(this.dragFodder, globalX + cxo, globalY + cyo);
-              }
-              this.currentDropTarget = dropTarget;
-            }
-            dropTarget.handleDragOver(this.dragFodder, globalX + cxo, globalY + cyo);
-          }
+						this.currentDropTarget=null;
+					}
+					else if(dropTarget.handleDragOver){
+						if (this.currentDropTarget !== dropTarget) {
+							if (!dropTarget.canDropItem(this.list, dropTarget.list, this.dragFodder.sourceIndex, this.dragFodder.dragItem, e)) {
+								return;
+							}
+							if (this.currentDropTarget) {
+								this.currentDropTarget.handleDragHoverExit(this.dragFodder, globalX + cxo, globalY + cyo);
+							}
+							this.currentDropTarget = dropTarget;
+						}
+						dropTarget.handleDragOver(this.dragFodder, globalX + cxo, globalY + cyo);
+					}
 //          if (dropTarget && dropTarget.handleDragOver) {
 //            if (this.currentDropTarget !== dropTarget) {
 //              if (!dropTarget.canDropItem(this.list, dropTarget.list, this.dragFodder.sourceIndex, this.dragFodder.dragItem, e)) {
@@ -488,146 +488,146 @@
 //          }
 
 
-        },
-        //lets notify the drop target of a drop
-        //the dropItem contains it's source, dragSource
-        handleDrop: function (e) {
-          noop(e);
-          var dropTarget = this.currentDropTarget;
-          var dragFodder = this.dragFodder;
+				},
+				//lets notify the drop target of a drop
+				//the dropItem contains it's source, dragSource
+				handleDrop: function (e) {
+					noop(e);
+					var dropTarget = this.currentDropTarget;
+					var dragFodder = this.dragFodder;
 //          console.log(dropTarget);
-          if (dropTarget == undefined) {
-            dragFodder.parentElement.removeChild(dragFodder);
-          }
-          else {
-            dropTarget.listItemDropped(dragFodder);
-          }
-        },
-        //ive had a list item dropped on me do the proper thing
-        listItemDropped: function (listItem) {
-          listItem.parentElement.removeChild(listItem);
-          //remove the item from body
-        },
-        //this function can be replaced to
-        //control what can be dragged out and what cannot
-        canDragItem: function (list, item, index, e) {
-          //noop(list, item, index, e);
+					if (dropTarget == undefined) {
+						dragFodder.parentElement.removeChild(dragFodder);
+					}
+					else {
+						dropTarget.listItemDropped(dragFodder);
+					}
+				},
+				//ive had a list item dropped on me do the proper thing
+				listItemDropped: function (listItem) {
+					listItem.parentElement.removeChild(listItem);
+					//remove the item from body
+				},
+				//this function can be replaced to
+				//control what can be dragged out and what cannot
+				canDragItem: function (list, item, index, e) {
+					//noop(list, item, index, e);
 
-          //some examples....
-          //return list.length > 1; // 1 item must be left
-          //return item !== 'sector'; // can't remove sector
+					//some examples....
+					//return list.length > 1; // 1 item must be left
+					//return item !== 'sector'; // can't remove sector
 
-          //default allow anything to be dragged out
-          return true;
-        },
-        //this function can be replaced to
-        //control what can be dragged out and what cannot
-        //the api could be done better given more time,
-        //but this will suffice for current needs
-        canDropItem: function (sourceList, myList, sourceIndex, item, e) {
-          noop(sourceList, myList, sourceIndex, item, e);
+					//default allow anything to be dragged out
+					return true;
+				},
+				//this function can be replaced to
+				//control what can be dragged out and what cannot
+				//the api could be done better given more time,
+				//but this will suffice for current needs
+				canDropItem: function (sourceList, myList, sourceIndex, item, e) {
+					noop(sourceList, myList, sourceIndex, item, e);
 
-          //some examples....
-          //return ['sector', 'gics', 'strategy'].indexOf(item) > -1; // 1 item must be in this list
-          //return item !== 'sector'; // can't drop sector here
+					//some examples....
+					//return ['sector', 'gics', 'strategy'].indexOf(item) > -1; // 1 item must be in this list
+					//return item !== 'sector'; // can't drop sector here
 
-          //default allow anything to be dragged out
-          return true;
-        },
+					//default allow anything to be dragged out
+					return true;
+				},
 
-        initiateItemDrag: function (li, e) {
-          //let' attach the this as the drag source to
-          //the item were dragging around
-          li.dragSource = this;
-          li.dragIndex = parseInt(li.getAttribute('value'));
-          li.dragItem = this.list[li.dragIndex];
-          this.overRow = undefined;
+				initiateItemDrag: function (li, e) {
+					//let' attach the this as the drag source to
+					//the item were dragging around
+					li.dragSource = this;
+					li.dragIndex = parseInt(li.getAttribute('value'));
+					li.dragItem = this.list[li.dragIndex];
+					this.overRow = undefined;
 //          var transitions = this.$.ulist.querySelectorAll('.transition').array();
 //          transitions.forEach(function(e) {
 //            e.classList.remove('transition');
 //          });
 //          e.preventDefault();
-          var goAwayer = li.nextElementSibling;
-          var bounds = li.getBoundingClientRect();
-          var self = this;
-          var parent = this.$.ulist;
-          var parentBounds = parent.getBoundingClientRect();
+					var goAwayer = li.nextElementSibling;
+					var bounds = li.getBoundingClientRect();
+					var self = this;
+					var parent = this.$.ulist;
+					var parentBounds = parent.getBoundingClientRect();
 //          li.classList.add('level3');
-          li.style.width = parentBounds.width + 'px';
-          var aux = this.list[li.dragIndex];
-          //console.log(aux);
-          this.list.splice(li.dragIndex, 0, aux);
-          this.dragFodder = li;
-          this.dragEventStart = [(e.x || e.clientX) - bounds.left, (e.y || e.clientY) - bounds.top];
-          //lets insert this guy and do a transition to
-          //shrink his height
-          //goAwayer.classList.remove('transition');
-          // goAwayer.classList.add('beBig');
-          //goAwayer.classList.remove('beSmall');
+					li.style.width = parentBounds.width + 'px';
+					var aux = this.list[li.dragIndex];
+					//console.log(aux);
+					this.list.splice(li.dragIndex, 0, aux);
+					this.dragFodder = li;
+					this.dragEventStart = [(e.x || e.clientX) - bounds.left, (e.y || e.clientY) - bounds.top];
+					//lets insert this guy and do a transition to
+					//shrink his height
+					//goAwayer.classList.remove('transition');
+					// goAwayer.classList.add('beBig');
+					//goAwayer.classList.remove('beSmall');
 
-          document.body.appendChild(li);
-          PolymerGestures.addEventListener(li, 'track', function (e) {
+					document.body.appendChild(li);
+					PolymerGestures.addEventListener(li, 'track', function (e) {
 
-            self.handleDrag(e);
+						self.handleDrag(e);
 
-          });
-          var that = this;
+					});
+					var that = this;
 //          console.log(this);
-          PolymerGestures.addEventListener(li, 'trackend', function (e) {
-            self.handleDrop(e);
-            clearTimeout(that.form.timeout);
-            that.form.timeout = '';
-          });
-          requestAnimationFrame(function () {
-            //goAwayer.classList.remove('beBig');
-            //goAwayer.classList.add('beSmall');
-            //goAwayer.classList.add('transition');
-            //wait a little longer than the transition
-            //and remove the spacer so as not to have
-            //duplicate spacers
-            setTimeout(function () {
-              goAwayer.classList.remove('transition');
-            }, 210);
-          });
-          //make the new guy generate touch events
+					PolymerGestures.addEventListener(li, 'trackend', function (e) {
+						self.handleDrop(e);
+						clearTimeout(that.form.timeout);
+						that.form.timeout = '';
+					});
+					requestAnimationFrame(function () {
+						//goAwayer.classList.remove('beBig');
+						//goAwayer.classList.add('beSmall');
+						//goAwayer.classList.add('transition');
+						//wait a little longer than the transition
+						//and remove the spacer so as not to have
+						//duplicate spacers
+						setTimeout(function () {
+							goAwayer.classList.remove('transition');
+						}, 210);
+					});
+					//make the new guy generate touch events
 
-        },
-        setCssLocation: function (style, x, y) {
-          style.position = 'fixed';
-          style.zIndex = 10;
-          style.top = 0;
-          style.left = 0;
-          style.webkitTransform = 'translate(' + x + 'px, ' + y + 'px)';
-          style.MozTransform = 'translate(' + x + 'px, ' + y + 'px)';
-          style.mmsTransform = 'translate(' + x + 'px, ' + y + 'px)';
-          style.oTransform = 'translate(' + x + 'px, ' + y + 'px)';
-          style.transform = 'translate(' + x + 'px, ' + y + 'px)';
-          style.border = '1px solid #bbbbbb';
-          style.boxShadow = '0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)';
-        },
+				},
+				setCssLocation: function (style, x, y) {
+					style.position = 'fixed';
+					style.zIndex = 10;
+					style.top = 0;
+					style.left = 0;
+					style.webkitTransform = 'translate(' + x + 'px, ' + y + 'px)';
+					style.MozTransform = 'translate(' + x + 'px, ' + y + 'px)';
+					style.mmsTransform = 'translate(' + x + 'px, ' + y + 'px)';
+					style.oTransform = 'translate(' + x + 'px, ' + y + 'px)';
+					style.transform = 'translate(' + x + 'px, ' + y + 'px)';
+					style.border = '1px solid #bbbbbb';
+					style.boxShadow = '0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)';
+				},
 
-        //I no longer have a drop prospect, it has hovered over another drop prospect, correct my expansion state
-        correctItemState: function () {
-          var self = this;
-          var spacer = this.$.ulist.querySelector('li.spacer.beBig');
-          if (spacer) {
-            requestAnimationFrame(function () {
-              spacer.classList.remove('beBig');
-              spacer.classList.add('beSmall');
-              spacer.classList.add('transition');
-              //wait a little longer than the transition
-              //and remove the spacer so as not to have
-              //duplicate spacers
-              setTimeout(function () {
-                spacer.classList.remove('transition');
-                self.overRow = undefined;
-              }, 210);
-            });
-          }
-        }
-      });
+				//I no longer have a drop prospect, it has hovered over another drop prospect, correct my expansion state
+				correctItemState: function () {
+					var self = this;
+					var spacer = this.$.ulist.querySelector('li.spacer.beBig');
+					if (spacer) {
+						requestAnimationFrame(function () {
+							spacer.classList.remove('beBig');
+							spacer.classList.add('beSmall');
+							spacer.classList.add('transition');
+							//wait a little longer than the transition
+							//and remove the spacer so as not to have
+							//duplicate spacers
+							setTimeout(function () {
+								spacer.classList.remove('transition');
+								self.overRow = undefined;
+							}, 210);
+						});
+					}
+				}
+			});
 
-    })();
+		})();
 
-  </script>
+	</script>
 </polymer-element>
