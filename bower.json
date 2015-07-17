@@ -4,12 +4,21 @@
   "main": "cbn-json-editor.html",
   "dependencies": {
       "polymer": "Polymer/polymer#^0.5",
+      "core-ajax": "Polymer/core-ajax#^0.5",
+      "core-icon": "Polymer/core-icon#^0.5",
+      "core-icons": "Polymer/core-icons#^0.5",
+      "core-icon-button": "Polymer/core-icon-button#^0.5",
+      "core-a11y-keys": "Polymer/core-a11y-keys#^0.5",
+      "core-pages": "Polymer/core-pages#^0.5",
+      "core-selector": "Polymer/core-selector#^0.5",
       "paper-dialog": "Polymer/paper-dialog#^0.5",
       "paper-ripple": "Polymer/paper-ripple#^0.5",
-      "core-a11y-keys": "Polymer/core-a11y-keys#^0.5",
       "paper-button": "Polymer/paper-button#^0.5",
+      "paper-tabs": "Polymer/paper-tabs#^0.5",
+      "paper-dialog": "Polymer/paper-dialog#^0.5",
       "cbn-input": "git@bitbucket.org:cbn-it/cbn-input.git#master",
-      "cbn-select": "git@bitbucket.org:cbn-it/cbn-select.git#master"
+      "cbn-select": "git@bitbucket.org:cbn-it/cbn-select.git#master",
+      "cbn-ace-editor": "git@bitbucket.org:cbn-it/cbn-ace-editor.git#master"
   },
   "devDependencies": {
     
