@@ -1,26 +1,24 @@
 {
-  "name": "cbn-json-editor",
-  "version": "0.0.0",
-  "main": "cbn-json-editor.html",
-  "dependencies": {
-      "polymer": "Polymer/polymer#^0.5",
-      "core-ajax": "Polymer/core-ajax#^0.5",
-      "core-icon": "Polymer/core-icon#^0.5",
-      "core-icons": "Polymer/core-icons#^0.5",
-      "core-icon-button": "Polymer/core-icon-button#^0.5",
-      "core-a11y-keys": "Polymer/core-a11y-keys#^0.5",
-      "core-pages": "Polymer/core-pages#^0.5",
-      "core-selector": "Polymer/core-selector#^0.5",
-      "paper-dialog": "Polymer/paper-dialog#^0.5",
-      "paper-ripple": "Polymer/paper-ripple#^0.5",
-      "paper-button": "Polymer/paper-button#^0.5",
-      "paper-tabs": "Polymer/paper-tabs#^0.5",
-      "paper-dialog": "Polymer/paper-dialog#^0.5",
-      "cbn-input": "git@bitbucket.org:cbn-it/cbn-input.git#master",
-      "cbn-select": "git@bitbucket.org:cbn-it/cbn-select.git#master",
-      "cbn-ace-editor": "git@bitbucket.org:cbn-it/cbn-ace-editor.git#master"
-  },
-  "devDependencies": {
-    
-  }
+    "name": "cbn-sabloane",
+    "private": true,
+    "version": "1.0.0",
+    "dependencies": {
+        "polymer": "Polymer/polymer#^1.2",
+        "paper-button": "PolymerElements/paper-button#^1.0",
+        "paper-tabs": "PolymerElements/paper-tabs#^1.0",
+        "paper-input": "PolymerElements/paper-input#^1.0.0",
+        "paper-tooltip": "PolymerElements/paper-tooltip#^1.0.0",
+        "paper-spinner": "PolymerElements/paper-spinner#^1.0.0",
+        "iron-pages": "PolymerElements/iron-pages#^1.0",
+        "iron-ajax": "PolymerElements/iron-ajax#^1.0",
+        "iron-flex-layout": "PolymerElements/iron-flex-layout#^1.0.0",
+        "iron-a11y-keys": "PolymerElements/iron-a11y-keys#^1.0.0",
+        "iron-behaviors": "PolymerElements/iron-behaviors#^1.0.0",
+        "cbn-ace-editor": "git@bitbucket.org:cbn-it/cbn-ace-editor.git#polymer1.0",
+        "cbn-form": "git@bitbucket.org:cbn-it/cbn-form.git#polymer1.0",
+        "cbn-select": "git@bitbucket.org:cbn-it/cbn-select#polymer1.0",
+        "cbn-grid": "git@bitbucket.org:cbn-it/cbn-grid#polymer1.0"
+    },
+    "devDependencies": {
+    }
 }

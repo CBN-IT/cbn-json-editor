@@ -1,0 +1,53 @@
+<!doctype html>
+
+<html>
+<head>
+	<link rel="import" href="../../polymer/polymer.html">
+	<link rel="import" href="../cbn-json-editor.html">
+	<style>
+		html, body {
+			margin: 0;
+			-webkit-tap-highlight-color: transparent;
+			overflow: hidden;
+		}
+		body{
+			position:absolute;
+			left:0;
+			right:0;
+			top:0;
+			bottom:0;
+		}
+		cbn-json-editor{
+			height:500px;
+			width:100%;
+			max-width: 800px;
+			margin:0 auto;
+			display: inline-block;
+		}
+	</style>
+</head>
+<body >
+<template is="dom-bind" id="demo">
+	<cbn-json-editor id="editorSablon"  kinds='["Factura","Proforma","Chitanta","Produs","Client","Firma","Cont","Nedefinit"]'></cbn-json-editor>
+	<!--<paper-button on-tap="reset">Reset</paper-button>
+	<script>
+		demo.reset=function(){
+			this.$.editorSablon.reset();
+		};
+		demo.setSomething=function(){
+			this.$.editorSablon.model={
+				contentSablon: "tra la la la",
+				numeFisier: "nume fisier tra la la la",
+				numeSablon: "test sablon",
+				tipGenerare:"word",
+				multiplicareProcese:"Nu",
+				entitate:"Factura",
+				aplicare:"Manual",
+				description:" descriere pentru sablon"
+			}
+		};
+	</script>-->
+</template>
+	
+</body>
+</html>
