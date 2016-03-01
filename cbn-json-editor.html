@@ -18,7 +18,7 @@
 <link rel="import" href="../paper-input/paper-input.html">
 <link rel="import" href="../paper-input/paper-textarea.html">
 <link rel="import" href="../paper-tabs/paper-tabs.html">
-<link rel="import" href="../paper-tooltip/paper-tooltip.html">
+<link rel="import" href="../cbn-tooltip/cbn-tooltip.html">
 <link rel="import" href="../paper-spinner/paper-spinner-lite.html">
 
 
@@ -98,12 +98,13 @@
 			<section>
 				<form is="cbn-form" action="/save/Formular" handleAs="json" model="{{model}}" params="{{params}}" id="formSablon" method="post" on-cbn-form-response="sablonSaved">
 					<cbn-dynamic-form config="{{_configSablon}}"></cbn-dynamic-form>
-					<paper-button id="saveSablon" class="save" on-tap="saveSablon">
+					<paper-button class="save" on-tap="saveSablon">
 						<iron-icon class="save-icon" icon="check" hidden$="[[loading]]"></iron-icon>
 						<paper-spinner-lite class="save-spinner" active="[[loading]]" hidden$="[[!loading]]"></paper-spinner-lite>
 						<span class="save-text">Salveaza</span>
+						<cbn-tooltip position="right" class="tooltip" animation-delay="0">Salveaza (CTRL+S)</cbn-tooltip>
 					</paper-button>
-					<paper-tooltip for="saveSablon" position="right" class="tooltip" animation-delay="0">Salveaza (CTRL+S)</paper-tooltip>
+					
 				</form>
 			</section>
 			<section style="position:relative">
