@@ -17,7 +17,7 @@
         "cbn-form": "git@bitbucket.org:cbn-it/cbn-form.git#polymer1.0",
         "cbn-select": "git@bitbucket.org:cbn-it/cbn-select#polymer1.0",
         "cbn-grid": "git@bitbucket.org:cbn-it/cbn-grid#polymer1.0",
-        "cbn-tooltip": "git@bitbucket.org:cbn-it/cbn-tooltip#polymer1.0"
+        "cbn-tooltip": "git@bitbucket.org:cbn-it/cbn-tooltip#master"
     },
     "devDependencies": {
     }
