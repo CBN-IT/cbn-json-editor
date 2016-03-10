@@ -1,33 +1,279 @@
-
 <link rel="import" href="../polymer/polymer.html">
 
-<link href="cbn-json-editor-elements.html" rel="import">
-<link href="cbn-json-editor-dialog.html" rel="import">
-<link href="cbn-json-editor-form.html" rel="import">
-<link href="../paper-dialog/paper-action-dialog.html" rel="import">
+
+<link rel="import" href="../cbn-ace-editor/cbn-ace-editor.html">
+<link rel="import" href="../cbn-form/cbn-form.html">
+<link rel="import" href="../cbn-form/elements/polymer-elements.html">
+<link rel="import" href="../cbn-form/cbn-dynamic-form.html">
+<link rel="import" href="../cbn-select/cbn-paper-select.html">
+<link rel="import" href="../cbn-grid/cbn-grid.html">
 
 
-<polymer-element name="cbn-json-editor" attributes="saveUrl data namespace">
-  <template>
-    <link rel="stylesheet" href="cbn-json-editor.css">
-    <div class="">
-      <div class="overlay-container" layout horizontal>
-        <cbn-json-editor-elements id="elements" class="column" form="{{$.form}}"></cbn-json-editor-elements>
-        <cbn-json-editor-form data="{{data}}" id="form" collapse="true" flex="true" class="columnBig"
-                              dialog="{{$.contentDialog}}"
-                              namespace="{{namespace}}"></cbn-json-editor-form>
-      </div>
-      <paper-action-dialog style="top:30px;left:430px" id="dialog2" class="dialog" autoCloseDisabled layered="false"
-                           transition="core-transition-center">
-        <cbn-json-editor-dialog id="contentDialog" form="{{$.form}}"></cbn-json-editor-dialog>
-      </paper-action-dialog>
-    </div>
-  </template>
-  <script>
-    (function () {
-      Polymer('cbn-json-editor', {
+<link rel="import" href="../iron-pages/iron-pages.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../iron-a11y-keys/iron-a11y-keys.html">
+<link rel="import" href="../iron-behaviors/iron-control-state.html">
 
-      });
-    })();
+
+<link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="../paper-input/paper-textarea.html">
+<link rel="import" href="../paper-tabs/paper-tabs.html">
+<link rel="import" href="../cbn-tooltip/cbn-tooltip.html">
+<link rel="import" href="../paper-spinner/paper-spinner-lite.html">
+
+
+
+<!--
+`cbn-json-editor` 
+
+    <cbn-json-editor></cbn-json-editor>
+
+### Validation
+
+### Styling
+
+@demo demo/index.html
+@class cbn-json-editor
+-->
+
+<dom-module id="cbn-json-editor">
+	<template>
+		<style>
+			:host {
+				@apply(--layout-vertical);
+			}
+			.form cbn-paper-select,
+			.form paper-input,
+			.form cbn-paper-datepicker{
+				padding:0px 10px;
+			}
+			.form paper-input-container{
+				padding: 4px 0;
+			}
+			iron-pages{
+				@apply(--layout-vertical);
+				@apply(--layout-flex);
+			}
+			section {
+				@apply(--layout-flex);
+			}
+			cbn-ace-editor {
+				margin: 0
+			}
+			:host {
+				outline:none;
+			}
+			.save{
+				background: #4285f4;
+				color: #fff;
+				min-width: 0;
+				padding: 0 15px 0 10px;
+				margin: 0;
+				height: 30px;
+				overflow: hidden;
+			}
+			.save > .save-icon {
+				width: 24px;
+				height: 24px;
+				margin: 3px 0;
+			}
+			.save > .save-spinner{
+				--paper-spinner-layer-1-color: white;
+				--paper-spinner-layer-2-color: white;
+				--paper-spinner-layer-3-color: white;
+				--paper-spinner-layer-4-color: white;
+				--paper-spinner-color: white;
+				height: 20px;
+				width: 20px;
+				margin: 5px 2px;
+			}
+		</style>
+		<style include="cbn-grid-shared-style"></style>
+		<iron-a11y-keys keys="ctrl+s" target="[[_target]]" on-keys-pressed="saveSablon" stop-keyboard-event-propagation="true"></iron-a11y-keys>
+		<paper-tabs selected="{{tab}}" >
+			<paper-tab>Configurare</paper-tab>
+			<paper-tab>Cod sablon</paper-tab>
+		</paper-tabs>
+		<iron-pages selected="{{tab}}">
+			<section>
+				<form is="cbn-form" action="/save/Formular" handleAs="json" model="{{model}}" params="{{params}}" id="formSablon" method="post" on-cbn-form-response="sablonSaved">
+					<cbn-dynamic-form config="{{_configSablon}}"></cbn-dynamic-form>
+					<paper-button class="save" on-tap="saveSablon">
+						<iron-icon class="save-icon" icon="check" hidden$="[[loading]]"></iron-icon>
+						<paper-spinner-lite class="save-spinner" active="[[loading]]" hidden$="[[!loading]]"></paper-spinner-lite>
+						<span class="save-text">Salveaza</span>
+						<cbn-tooltip position="right" class="tooltip" animation-delay="0">Salveaza (CTRL+S)</cbn-tooltip>
+					</paper-button>
+					
+				</form>
+			</section>
+			<section style="position:relative">
+				<cbn-ace-editor id="contentSablon"  mode="json" theme="crimson_editor" font-size="1em" value="{{model.json}}"></cbn-ace-editor>
+			</section>
+		</iron-pages>
+	</template>
+</dom-module>
+
+<script>
+	(function () {
+		Polymer({
+
+			is: 'cbn-json-editor',
+			behaviors: [Polymer.IronControlState],
+			properties: {
+				params: {
+					type:Object,
+					value: function(){
+						return {}
+					}
+				},
+				/**
+				 * The list of kinds to appear in the Entitate Dropdown
+				 */
+				kinds: {
+					type: Array,
+					value: function () {
+						return [];
+					},
+					notify: false,
+					readOnly: false,
+					reflectToAttribute: false
+				},
+				/**
+				 * The tab that is currently active
+				 */
+				tab: {
+					type: Number,
+					value: 0,
+					notify: true,
+					readOnly: false,
+					reflectToAttribute: false,
+					observer:"_tabChanged"
+				},
+				/**
+				 * The form config needed for the dinamic form
+				 */
+				_configSablon: {
+					type: Object,
+					value: function () {
+						return {};
+					},
+					notify: false,
+					reflectToAttribute: false
+				},
+
+				/**
+				 *
+				 */
+				model: {
+					type: Object,
+					value: function () {
+						return {
+							
+						};
+					},
+					notify: true,
+					readOnly: false,
+					reflectToAttribute: false,
+					observer: "_modelChanged"
+				},
+				/**
+				 * if you still have ajax in progress
+				 */
+				loading: {
+					type: Boolean,
+					value: false,
+					notify: true,
+					readOnly: false,
+					reflectToAttribute: false
+				},
+
+				/**
+				 *
+				 */
+				_target: {
+					type: Object,
+					value: function () {
+						return this;
+					},
+					notify: false,
+					readOnly: false,
+					reflectToAttribute: false
+				}
+
+			},
+			hostAttributes:{
+				tabindex: "1"
+			},
+			observers: [],
+			ready: function () {
+				this._setConfigSablon();
+				this.reset();
+			},
+			reset: function () {
+				this.model = {
+				};
+			},
+			_setConfigSablon: function(){
+				this._configSablon = {
+					"elements": [
+						{
+							"type": "select",
+							"element": "cbn-paper-select",
+							"label": "Tip formular",
+							"name": "name",
+							"search": false,
+							"multiple": false,
+							"info": "",
+							"database": "",
+							"property": "",
+							"className": "col-xs-12 col-sm-12 col-lg-12",
+							"validation": {
+								"required": true
+							},
+							"autoValidate": true,
+							itemValueProperty: "value",
+							"options": this.kinds,
+							"floatingLabel": true,
+							"alwaysShowChips": true
+						}
+					]
+				};
+			},
+			_tabChanged: function(){
+				if (this.tab === 1) {
+					/*
+					 this is here because if the editor is not visible it doesn't update the content of the editor until you click inside it
+					 we want to update only on model changed, cause that is the only time it comes from outside. 
+					 when you change between tabs, it was resetting the cursor position
+					 */
+					if (this.refreshContentSablon) {
+						this.$.contentSablon._valueChanged();
+						this.refreshContentSablon = false;
+					}
+					this.$.contentSablon.focus();
+				}
+			},
+			_modelChanged: function () {
+				this.tab = 0;
+				this.refreshContentSablon = true;
+			},
+			saveSablon: function (event) {
+				/*not to show the download html thing when ctrl+s is pressed
+				 the button doesn't throw the keyboardEvent thing;*/
+				if (event.detail.keyboardEvent != null) {
+					event.detail.keyboardEvent.preventDefault();
+				}
+				this.model.json = this.$.contentSablon.editorValue;
+				if (!this.$.formSablon.validate()) {
+					this.tab = 0;
+				}
+				this.$.formSablon.submit();
+			},
+			sablonSaved: function(event){
+				/*after save we set the hash back into the model so the second save does an update instead of a new save*/
+				this.model._hash = event.detail.response._hash;
+			}
+		})
+	})();
 </script>
-</polymer-element>
