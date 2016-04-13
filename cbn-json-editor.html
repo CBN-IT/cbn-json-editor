@@ -137,7 +137,8 @@
 					},
 					notify: false,
 					readOnly: false,
-					reflectToAttribute: false
+					reflectToAttribute: false,
+					observer: 'kindsChanged'
 				},
 				/**
 				 * The tab that is currently active
@@ -273,6 +274,9 @@
 			sablonSaved: function(event){
 				/*after save we set the hash back into the model so the second save does an update instead of a new save*/
 				this.model._hash = event.detail.response._hash;
+			},
+			kindsChanged: function(event){
+				this._setConfigSablon();
 			}
 		})
 	})();
