@@ -96,7 +96,7 @@
 		</paper-tabs>
 		<iron-pages selected="{{tab}}">
 			<section>
-				<form is="cbn-form" action="/save/Formular" handleAs="json" model="{{model}}" params="{{params}}" id="formSablon" method="post" on-cbn-form-response="sablonSaved">
+				<form is="cbn-form" action="{{action}}" handleAs="json" model="{{model}}" params="{{params}}" id="formSablon" method="post" on-cbn-form-response="sablonSaved">
 					<cbn-dynamic-form config="{{_configSablon}}"></cbn-dynamic-form>
 					<paper-button class="save" on-tap="saveSablon">
 						<iron-icon class="save-icon" icon="check" hidden$="[[loading]]"></iron-icon>
@@ -126,6 +126,10 @@
 					value: function(){
 						return {}
 					}
+				},
+				action: {
+					type: String,
+					value: '/save/Formular'
 				},
 				/**
 				 * The list of kinds to appear in the Entitate Dropdown
