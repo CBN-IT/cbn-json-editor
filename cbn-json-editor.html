@@ -2,25 +2,16 @@
 
 
 <link rel="import" href="../cbn-ace-editor/cbn-ace-editor.html">
-<link rel="import" href="../cbn-form/cbn-form.html">
-<link rel="import" href="../cbn-form/elements/polymer-elements.html">
-<link rel="import" href="../cbn-form/cbn-dynamic-form.html">
-<link rel="import" href="../cbn-select/cbn-paper-select.html">
-<link rel="import" href="../cbn-grid/cbn-grid.html">
-
 
 <link rel="import" href="../iron-pages/iron-pages.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../iron-a11y-keys/iron-a11y-keys.html">
 <link rel="import" href="../iron-behaviors/iron-control-state.html">
 
-
-<link rel="import" href="../paper-input/paper-input.html">
-<link rel="import" href="../paper-input/paper-textarea.html">
 <link rel="import" href="../paper-tabs/paper-tabs.html">
 <link rel="import" href="../cbn-tooltip/cbn-tooltip.html">
 <link rel="import" href="../paper-spinner/paper-spinner-lite.html">
-
+<link rel="import" href="../cbn-main-page/import-form-elements.html">
 
 
 <!--
@@ -38,17 +29,12 @@
 
 <dom-module id="cbn-json-editor">
 	<template>
+		<style include="cbn-grid-styles"></style>
+		<style include="cbn-form-shared-style"></style>
+		
 		<style>
 			:host {
 				@apply(--layout-vertical);
-			}
-			.form cbn-paper-select,
-			.form paper-input,
-			.form cbn-paper-datepicker{
-				padding:0px 10px;
-			}
-			.form paper-input-container{
-				padding: 4px 0;
 			}
 			iron-pages{
 				@apply(--layout-vertical);
