@@ -49,30 +49,6 @@
 			:host {
 				outline:none;
 			}
-			.save{
-				background: #4285f4;
-				color: #fff;
-				min-width: 0;
-				padding: 0 15px 0 10px;
-				margin: 0;
-				height: 30px;
-				overflow: hidden;
-			}
-			.save > .save-icon {
-				width: 24px;
-				height: 24px;
-				margin: 3px 0;
-			}
-			.save > .save-spinner{
-				--paper-spinner-layer-1-color: white;
-				--paper-spinner-layer-2-color: white;
-				--paper-spinner-layer-3-color: white;
-				--paper-spinner-layer-4-color: white;
-				--paper-spinner-color: white;
-				height: 20px;
-				width: 20px;
-				margin: 5px 2px;
-			}
 		</style>
 		<style include="cbn-grid-shared-style"></style>
 		<iron-a11y-keys keys="ctrl+s" target="[[_target]]" on-keys-pressed="saveSablon" stop-keyboard-event-propagation="true"></iron-a11y-keys>
@@ -84,13 +60,11 @@
 			<section>
 				<form is="cbn-form" action="{{action}}" handleAs="json" model="{{model}}" params="{{params}}" id="formSablon" method="post" on-cbn-form-response="sablonSaved">
 					<cbn-dynamic-form config="{{_configSablon}}"></cbn-dynamic-form>
-					<paper-button class="save" on-tap="saveSablon">
-						<iron-icon class="save-icon" icon="check" hidden$="[[loading]]"></iron-icon>
-						<paper-spinner-lite class="save-spinner" active="[[loading]]" hidden$="[[!loading]]"></paper-spinner-lite>
-						<span class="save-text">Salveaza</span>
-						<cbn-tooltip position="right" class="tooltip" animation-delay="0">Salveaza (CTRL+S)</cbn-tooltip>
+					<paper-button class="icon-btn background blue margin-left" on-click="saveSablon">
+						<iron-icon icon="check" class="icon-btn-icon"></iron-icon>
+						<span class="icon-btn-text">Salveaza</span>
+						<cbn-tooltip position="right">Salveaza (CTRL+S)</cbn-tooltip>
 					</paper-button>
-					
 				</form>
 			</section>
 			<section style="position:relative">
